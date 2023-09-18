@@ -1,0 +1,40 @@
+uuid: eb8f6a3a-650f-4c6f-adbb-09fd9c10a9de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_layout_bg_media
+    - media.type.image
+    - media.type.remote_video
+    - media.type.vector_image
+    - media.type.video
+    - paragraphs.paragraphs_type.layout_bg_paragraph
+  enforced:
+    module:
+      - layout_bg_paragraph
+_core:
+  default_config_hash: LR_2IEWS7d_wc1qxM7IRyn8x8UHSZNnuDHyn5mq220Q
+id: paragraph.layout_bg_paragraph.field_layout_bg_media
+field_name: field_layout_bg_media
+entity_type: paragraph
+bundle: layout_bg_paragraph
+label: 'Background Media'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+      remote_video: remote_video
+      vector_image: vector_image
+      video: video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

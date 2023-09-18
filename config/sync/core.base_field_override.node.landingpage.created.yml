@@ -1,0 +1,18 @@
+uuid: 140de1cc-ba00-4932-9f39-85d513ee6b19
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.landingpage
+id: node.landingpage.created
+field_name: created
+entity_type: node
+bundle: landingpage
+label: 'Authored on'
+description: 'The time that the node was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

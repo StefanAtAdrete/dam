@@ -1,0 +1,238 @@
+uuid: 3e049cbf-ae03-48e1-b24f-5acbd09d7032
+langcode: sv
+status: true
+dependencies:
+  theme:
+    - b5subtheme
+  menu:
+    - main
+id: main__b5subtheme
+menu: main
+theme: b5subtheme
+block_config: |-
+  {
+      "animation": "none",
+      "duration": 400,
+      "delay": 200,
+      "breakpoint": 1200,
+      "hide-mobile-menu": "",
+      "auto-arrow": "0",
+      "always-show-submenu": "0",
+      "number-columns": 3
+  }
+menu_config: |-
+  {
+      "taxonomy_menu.menu_link:taxonomy_menu.menu_link.produkter.2": {
+          "rows_content": [
+              [
+                  {
+                      "col_content": [
+                          {
+                              "plugin_id": "taxonomy_menu.menu_link:taxonomy_menu.menu_link.produkter.20",
+                              "type": "menu_item",
+                              "tb_item_config": [],
+                              "weight": "0"
+                          }
+                      ],
+                      "col_config": {
+                          "width": "12",
+                          "class": "bg-dark",
+                          "hidewcol": "0",
+                          "showblocktitle": "1"
+                      }
+                  }
+              ]
+          ],
+          "submenu_config": {
+              "width": "",
+              "class": "bg-dark",
+              "group": "0"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "justify",
+              "group": "0",
+              "hidewcol": "0",
+              "hidesub": "0",
+              "label": ""
+          }
+      },
+      "taxonomy_menu.menu_link:taxonomy_menu.menu_link.produkter.20": {
+          "rows_content": [],
+          "submenu_config": {
+              "width": "",
+              "class": "",
+              "group": "0"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "",
+              "group": "0",
+              "hidewcol": "0",
+              "hidesub": "0",
+              "label": ""
+          }
+      },
+      "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.6": {
+          "rows_content": [
+              [
+                  {
+                      "col_content": [
+                          {
+                              "plugin_id": "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.21",
+                              "type": "menu_item",
+                              "tb_item_config": [],
+                              "weight": "-50"
+                          },
+                          {
+                              "plugin_id": "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.18",
+                              "type": "menu_item",
+                              "tb_item_config": [],
+                              "weight": "-49"
+                          },
+                          {
+                              "plugin_id": "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.22",
+                              "type": "menu_item",
+                              "tb_item_config": [],
+                              "weight": "0"
+                          }
+                      ],
+                      "col_config": {
+                          "width": "12",
+                          "class": "",
+                          "hidewcol": "",
+                          "showblocktitle": "1"
+                      }
+                  }
+              ]
+          ],
+          "submenu_config": {
+              "width": "",
+              "class": "bg-dark",
+              "group": "0"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "justify",
+              "group": "0",
+              "hidewcol": "0",
+              "hidesub": "0",
+              "label": ""
+          }
+      },
+      "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.21": {
+          "rows_content": [],
+          "submenu_config": {
+              "width": "",
+              "class": "",
+              "group": "1"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "",
+              "group": "1",
+              "hidewcol": "0",
+              "hidesub": "0",
+              "label": ""
+          }
+      },
+      "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.18": {
+          "rows_content": [
+              [
+                  {
+                      "col_content": [
+                          {
+                              "plugin_id": "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.17",
+                              "type": "menu_item",
+                              "tb_item_config": [],
+                              "weight": "-50"
+                          }
+                      ],
+                      "col_config": {
+                          "width": "12",
+                          "class": "",
+                          "hidewcol": "0",
+                          "showblocktitle": "1"
+                      }
+                  }
+              ]
+          ],
+          "submenu_config": {
+              "width": "",
+              "class": "bg-dark",
+              "group": "0"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "",
+              "group": "0",
+              "hidewcol": "0",
+              "hidesub": "1",
+              "label": ""
+          }
+      },
+      "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.17": {
+          "rows_content": [],
+          "submenu_config": {
+              "width": "",
+              "class": "",
+              "group": "0"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "",
+              "group": "0",
+              "hidewcol": "0",
+              "hidesub": "0",
+              "label": ""
+          }
+      },
+      "taxonomy_menu.menu_link:taxonomy_menu.menu_link.losningar.22": {
+          "rows_content": [],
+          "submenu_config": {
+              "width": "",
+              "class": "",
+              "group": "0"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "",
+              "group": "0",
+              "hidewcol": "0",
+              "hidesub": "0",
+              "label": ""
+          }
+      },
+      "menu_link_content:522dd091-db16-44d6-84da-c3497db3b517": {
+          "rows_content": [],
+          "submenu_config": {
+              "width": "",
+              "class": "",
+              "group": "0"
+          },
+          "item_config": {
+              "class": "bg-dark",
+              "xicon": "",
+              "caption": "",
+              "alignsub": "",
+              "group": "0",
+              "hidewcol": "0",
+              "hidesub": "0",
+              "label": ""
+          }
+      }
+  }

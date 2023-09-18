@@ -1,0 +1,30 @@
+uuid: d6e42ad2-3663-405a-8586-297a8a8f89cd
+langcode: en
+status: true
+dependencies:
+  module:
+    - addtoany
+    - block_class
+  theme:
+    - b5subtheme
+third_party_settings:
+  block_class:
+    classes: container
+id: addtoanysharebuttons
+theme: b5subtheme
+region: footer
+weight: -5
+provider: null
+plugin: addtoany_block
+settings:
+  id: addtoany_block
+  label: 'AddToAny share buttons'
+  label_display: '0'
+  provider: addtoany
+  context_mapping:
+    node: '@node.node_route_context:node'
+  link_url: ''
+  link_title: ''
+  buttons_size: ''
+  addtoany_html: ''
+visibility: {  }

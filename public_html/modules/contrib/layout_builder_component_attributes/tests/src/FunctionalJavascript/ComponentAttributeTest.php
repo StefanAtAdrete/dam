@@ -147,7 +147,7 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $page->fillField('block_attributes[data]', 'data-block-test' . PHP_EOL . 'ata-block-test2|test-value');
     $page->pressButton('Update');
     $assert_session->assertWaitOnAjaxRequest();
-    $this->assertSettingsTrayValidationMessage('Data attributes must being with "data-"');
+    $this->assertSettingsTrayValidationMessage('Data attributes must begin with "data-"');
     $page->fillField('block_attributes[data]', 'data-block-test' . PHP_EOL . 'data-block-test2|test-value');
 
     $page->pressButton('Update');
@@ -179,7 +179,7 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $page->fillField('block_title_attributes[data]', 'data-block-title-test' . PHP_EOL . 'ata-block-title-test2|test-value-title');
     $page->pressButton('Update');
     $assert_session->assertWaitOnAjaxRequest();
-    $this->assertSettingsTrayValidationMessage('Data attributes must being with "data-"');
+    $this->assertSettingsTrayValidationMessage('Data attributes must begin with "data-"');
     $page->fillField('block_title_attributes[data]', 'data-block-title-test' . PHP_EOL . 'data-block-title-test2|test-value-title');
 
     $page->pressButton('Update');
@@ -211,7 +211,7 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $page->fillField('block_content_attributes[data]', 'data-block-content-test' . PHP_EOL . 'ata-block-content-test2|test-value-content');
     $page->pressButton('Update');
     $assert_session->assertWaitOnAjaxRequest();
-    $this->assertSettingsTrayValidationMessage('Data attributes must being with "data-"');
+    $this->assertSettingsTrayValidationMessage('Data attributes must begin with "data-"');
     $page->fillField('block_content_attributes[data]', 'data-block-content-test' . PHP_EOL . 'data-block-content-test2|test-value-content');
 
     $page->pressButton('Update');

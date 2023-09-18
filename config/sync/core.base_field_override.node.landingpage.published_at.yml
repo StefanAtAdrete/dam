@@ -1,0 +1,20 @@
+uuid: b5d0805e-4dc3-48b9-94d9-ce60752ec7d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.landingpage
+  module:
+    - publication_date
+id: node.landingpage.published_at
+field_name: published_at
+entity_type: node
+bundle: landingpage
+label: 'Published on'
+description: 'Keep the publication timestamp for each node.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: published_at

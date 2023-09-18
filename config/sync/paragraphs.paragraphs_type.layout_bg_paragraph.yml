@@ -1,0 +1,15 @@
+uuid: 5f705a1f-9ec9-418d-8a8b-f1bb81f3ce28
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - layout_bg_paragraph
+_core:
+  default_config_hash: '-fqN3lEjWTY2IAR8Q2giM-lCkfPq16FmAdv-fTjWKlE'
+id: layout_bg_paragraph
+label: 'Paragraph with BG'
+icon_uuid: null
+icon_default: null
+description: 'Example of using Layout BG.'
+behavior_plugins: {  }
