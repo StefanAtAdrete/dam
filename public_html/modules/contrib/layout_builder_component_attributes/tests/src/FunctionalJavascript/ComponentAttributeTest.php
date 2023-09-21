@@ -231,6 +231,9 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $this->assertNotEmpty($element, "Block ID rendered");
     $this->assertTrue($element->hasClass('block-class1'), "Block class rendered");
     $this->assertTrue($element->hasClass('block-class2'), "Block class rendered");
+    // Verify existing CSS class added by
+    // layout_builder_component_attributes_test_preprocess_block() is preserved.
+    $this->assertTrue($element->hasClass('existing-css-class'), "Existing block class rendered");
     $style = $element->getAttribute('style');
     $this->assertSame('color: blue;', $style, "Style attribute rendered");
     $this->assertTrue($element->hasAttribute('data-block-test'), "Data attribute rendered");
@@ -245,6 +248,9 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $this->assertNotEmpty($element, "Block ID rendered");
     $this->assertTrue($element->hasClass('block-title-class1'), "Block class rendered");
     $this->assertTrue($element->hasClass('block-title-class2'), "Block class rendered");
+    // Verify existing CSS class added by
+    // layout_builder_component_attributes_test_preprocess_block() is preserved.
+    $this->assertTrue($element->hasClass('existing-title-css-class'), "Existing block class rendered");
     $style = $element->getAttribute('style');
     $this->assertSame('color: white;', $style, "Style attribute rendered");
     $this->assertTrue($element->hasAttribute('data-block-title-test'), "Data attribute rendered");
@@ -259,6 +265,9 @@ class ComponentAttributeTest extends WebDriverTestBase {
     $this->assertNotEmpty($element, "Block ID rendered");
     $this->assertTrue($element->hasClass('block-content-class1'), "Block class rendered");
     $this->assertTrue($element->hasClass('block-content-class2'), "Block class rendered");
+    // Verify existing CSS class added by
+    // layout_builder_component_attributes_test_preprocess_block() is preserved.
+    $this->assertTrue($element->hasClass('existing-content-css-class'), "Existing block class rendered");
     $style = $element->getAttribute('style');
     $this->assertSame('color: red;', $style, "Style attribute rendered");
     $this->assertTrue($element->hasAttribute('data-block-content-test'), "Data attribute rendered");

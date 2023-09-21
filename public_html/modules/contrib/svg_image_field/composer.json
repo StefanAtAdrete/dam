@@ -17,5 +17,8 @@
   "minimum-stability": "dev",
   "require": {
     "enshrined/svg-sanitize": "~0.15"
+  },
+  "require-dev": {
+    "drupal/stage_file_proxy": "^2.0"
   }
 }

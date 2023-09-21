@@ -284,7 +284,7 @@ class ManageComponentAttributesForm extends FormBase {
     $elements = [
       'block_attributes',
       'block_title_attributes',
-      'block_content_attributes'
+      'block_content_attributes',
     ];
 
     foreach ($elements as $element) {

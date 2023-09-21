@@ -25,6 +25,5 @@ content:
 hidden:
   created: true
   name: true
-  path: true
   status: true
   uid: true

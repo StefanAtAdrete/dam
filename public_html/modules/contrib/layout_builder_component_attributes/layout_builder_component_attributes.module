@@ -26,7 +26,7 @@ function layout_builder_component_attributes_preprocess_block(&$variables) {
       }
       if ($config['allowed_block_' . $attribute_name]['class'] && $component_attributes['block_' . $attribute_name]['class']) {
         $classes = explode(' ', $component_attributes['block_' . $attribute_name]['class']);
-        $existing_classes = $variables['attributes']['class'] ?? [];
+        $existing_classes = $variables[$attribute_name]['class'] ?? [];
         $variables[$attribute_name]['class'] = array_merge($existing_classes, $classes);
       }
       if ($config['allowed_block_' . $attribute_name]['style'] && $component_attributes['block_' . $attribute_name]['style']) {
