@@ -1,3 +1,26 @@
+/* Breadcrumb niceness */
+.region-breadcrumb {
+    padding: 5px 0 5px 0;
+}
+
+.breadcrumb {
+    --bs-breadcrumb-margin-bottom: 0rem;
+}
+
+li.breadcrumb-item a {
+    color: #a6a6a6;
+    text-decoration: none;
+}
+
+li.breadcrumb-item {
+    color: #a6a6a6;
+}
+
+.breadcrumb-item::before {
+    content: var(--bs-breadcrumb-divider,">");
+    color: #949494;
+}
+
 /* Hero fixes */
 .flex-direction-nav a {
     height: 60px;
