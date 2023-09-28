@@ -6,4 +6,6 @@ icon_picker:
       css/icons-style.css: {}
 
   dependencies:
+    - core/drupal
     - core/jquery
+    - core/once

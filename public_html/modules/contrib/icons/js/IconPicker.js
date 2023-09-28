@@ -3,7 +3,7 @@
  * Provides an Icon Picker for item lists.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, once) {
 
   'use strict';
 
@@ -15,10 +15,10 @@
 
     attach: function (context, settings) {
       // Icon picker select element(s).
-      const $iconPicker = $('.js-form-type-icon-select');
+      const $iconPicker = $(once('iconPicker', '.js-form-type-icon-select'));
 
       // Go through all found icon picker select elements.
-      $iconPicker.once('iconPicker').each(function () {
+      $iconPicker.each(function () {
         // Set icon picker select element on $formItem.
         const $formItem = $(this);
 
@@ -84,4 +84,4 @@
     }
   };
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);

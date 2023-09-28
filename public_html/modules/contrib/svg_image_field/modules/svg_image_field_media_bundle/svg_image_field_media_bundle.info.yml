@@ -7,7 +7,7 @@ dependencies:
   - drupal:media
   - svg_image_field:svg_image_field
 
-# Information added by Drupal.org packaging script on 2023-09-19
-version: '2.2.1'
+# Information added by Drupal.org packaging script on 2023-09-21
+version: '2.3.0'
 project: 'svg_image_field'
-datestamp: 1695122804
+datestamp: 1695282446

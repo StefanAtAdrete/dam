@@ -54,6 +54,7 @@ class IconSetHtmlRouteProvider extends AdminHtmlRouteProvider {
 
       return $route;
     }
+    return null;
   }
 
 }

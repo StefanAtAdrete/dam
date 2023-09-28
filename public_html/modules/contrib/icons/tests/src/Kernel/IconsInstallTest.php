@@ -43,7 +43,7 @@ class IconsInstallTest extends EntityKernelTestBase {
    */
   public function testInstall(): void {
     // Check that the icon set was created and saved properly.
-    /** @var \Drupal\icons\Entity\IconSetInterface $icon_set */
+    /** @var \Drupal\icons\Entity\IconSetInterface $group_type */
     $group_type = $this->entityTypeManager
       ->getStorage('icon_set')
       ->load('default');

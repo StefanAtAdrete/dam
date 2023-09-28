@@ -6,7 +6,9 @@ use Drupal;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContextAwarePluginAssignmentTrait;
-use Drupal\Core\Plugin\ContextAwarePluginBase;
+use Drupal\Core\Plugin\ContextAwarePluginInterface;
+use Drupal\Core\Plugin\ContextAwarePluginTrait;
+use Drupal\Core\Plugin\PluginBase;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Plugin\PluginWithFormsInterface;
@@ -23,10 +25,11 @@ use Drupal\Component\Transliteration\TransliterationInterface;
  *
  * @ingroup icons
  */
-abstract class IconLibraryPluginBase extends ContextAwarePluginBase implements IconLibraryPluginInterface, PluginWithFormsInterface {
+abstract class IconLibraryPluginBase extends PluginBase implements IconLibraryPluginInterface, PluginWithFormsInterface, ContextAwarePluginInterface {
 
   use ContextAwarePluginAssignmentTrait;
   use PluginWithFormsTrait;
+  use ContextAwarePluginTrait;
 
   /**
    * The transliteration service.

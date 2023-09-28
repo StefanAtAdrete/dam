@@ -167,6 +167,7 @@ class IconSetForm extends EntityForm {
     // TODO: Drupal Rector Notice: Please delete the following comment after you've made any necessary changes.
     // Please confirm that `$icon_set` is an instance of `Drupal\Core\Entity\EntityInterface`. Only the method name and not the class name was checked for this replacement, so this may be a false positive.
     $form_state->setRedirectUrl($icon_set->toUrl('collection'));
+    return;
   }
 
   /**
@@ -241,7 +242,7 @@ class IconSetForm extends EntityForm {
     $suggestion = $iconSet->getPlugin()->getMachineNameSuggestion();
 
     // Get all the icon sets which starts with the suggested machine name.
-    $query = $this->storage->getQuery();
+    $query = $this->storage->getQuery()->accessCheck(FALSE);
     $query->condition('id', $suggestion, 'CONTAINS');
     $icon_set_ids = $query->execute();
 

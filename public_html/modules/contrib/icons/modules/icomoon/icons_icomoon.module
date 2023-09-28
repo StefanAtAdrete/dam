@@ -11,8 +11,8 @@
 function icons_icomoon_library_info_build() {
   $libraries = [];
 
-  /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
   $query = Drupal::entityQuery('icon_set')
+    ->accessCheck(FALSE)
     ->condition('plugin', 'icomoon');
 
   $ids = $query->execute();

@@ -11,8 +11,8 @@
 function icons_fontello_library_info_build() {
   $libraries = [];
 
-  /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
   $query = Drupal::entityQuery('icon_set')
+    ->accessCheck(FALSE)
     ->condition('plugin', 'fontello');
 
   $ids = $query->execute();
