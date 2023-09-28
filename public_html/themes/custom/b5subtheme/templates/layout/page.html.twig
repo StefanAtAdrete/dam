@@ -68,11 +68,7 @@ set footer_classes = ' ' ~
 		<nav class="container {{ nav_classes }}">
 			<div class="{{ b5_top_container }}">
 				{{ page.nav_branding }}
-				{# <button
-																																	class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">{#<span class="navbar-toggler-icon"></span> 
-																																</button> 
-																
-																				<div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent"> #}
+				{# <button<div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent"> #}
 				{{ page.nav_main }}
 				{{ page.nav_additional }}
 			</div>
@@ -81,7 +77,11 @@ set footer_classes = ' ' ~
 {% endif %}</header><main role="main">
 <a id="main-content" tabindex="-1"></a>
 {# link is in html.html.twig #}
-
+{% if page.hero_section %}
+	<div id="herosection">
+		{{ page.hero_section }}
+	</div>
+{% endif %}
 {%
   set sidebar_first_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-sm-6 col-lg-3' : 'col-12 col-lg-3'
   %}
