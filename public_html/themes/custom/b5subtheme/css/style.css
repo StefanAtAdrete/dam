@@ -1,4 +1,9 @@
 @charset "UTF-8";
+/* header */
+header.bg-dark {
+  border-bottom: 2px solid #00addd;
+}
+
 /* Breadcrumb niceness */
 .region-breadcrumb {
   padding: 5px 0 5px 0;
