@@ -114,8 +114,8 @@ li.breadcrumb-item {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: #00a4cd;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 164, 205, 0);
+  border: 0px solid rgba(255, 255, 255, 0.2);
 }
 
 .tbm-subnav > .tbm-item > .tbm-link-container > .tbm-link {
@@ -345,7 +345,6 @@ article.node.node--type-article.node--promoted.node--view-mode-teaser h2, articl
   text-decoration: underline;
 }
 
-/* Fonts */
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

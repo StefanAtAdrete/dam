@@ -113,8 +113,8 @@ li.breadcrumb-item {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: #00a4cd;
-    border: 1px solid rgb(255 255 255 / 20%);
+    background-color: #00a4cd00;
+    border: 0px solid rgb(255 255 255 / 20%);
 }
 
 .tbm-subnav>.tbm-item>.tbm-link-container>.tbm-link {
@@ -356,5 +356,3 @@ article.node.node--type-article.node--promoted.node--view-mode-teaser h2 {
 #block-languageswitcher li a.is-active {
     text-decoration: underline;
 }
-
-/* Fonts */
