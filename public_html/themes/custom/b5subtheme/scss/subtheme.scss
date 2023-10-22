@@ -1,3 +1,9 @@
+/* Table rows */
+.tablesaw-stack tr {
+    display: table-row;
+    border: 1px solid #ccc;
+}
+
 /* header */
 header.bg-dark {
     border-bottom: 2px solid #00addd;
