@@ -74,7 +74,7 @@ abstract class MediaContextualCropPluginBase extends PluginBase implements Media
    * @return \Drupal\crop\Entity\Crop
    *   Return the crop entity.
    */
-  protected function retrieveCrop($crop_type, $old_uri, $new_uri) {
+  protected function retrieveCrop(string $crop_type, string $old_uri, string $new_uri) {
 
     $cropStorage = $this->entityTypeManager->getStorage('crop');
 

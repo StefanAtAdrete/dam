@@ -342,8 +342,12 @@ class SvgImageFieldFormatter extends FormatterBase implements ContainerFactoryPl
         $dom->documentElement->setAttribute('fill', 'currentColor');
       }
       if ($this->getSetting('apply_dimensions')) {
-        $dom->documentElement->setAttribute('height', $attributes['height']);
-        $dom->documentElement->setAttribute('width', $attributes['width']);
+        if ($attributes['height']) {
+          $dom->documentElement->setAttribute('height', $attributes['height']);
+        }
+        if ($attributes['width']) {
+          $dom->documentElement->setAttribute('width', $attributes['width']);
+        }
       }
       $element = $dom->documentElement;
     }

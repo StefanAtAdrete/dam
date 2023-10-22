@@ -7,7 +7,7 @@ dependencies:
   - drupal:field
   - drupal:text
 
-# Information added by Drupal.org packaging script on 2023-09-30
-version: '6.0.1'
+# Information added by Drupal.org packaging script on 2023-10-09
+version: '6.0.2'
 project: 'linkit'
-datestamp: 1696099908
+datestamp: 1696865399

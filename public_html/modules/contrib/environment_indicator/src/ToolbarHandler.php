@@ -298,9 +298,9 @@ class ToolbarHandler implements ContainerInjectionInterface {
         return [
           'attributes' => [
             'style' => 'color: ' . $entity->getFgColor() . '; background-color: ' . $entity->getBgColor() . ';',
-            'title' => t('Opens the current page in the selected environment.'),
+            'title' => $this->t('Opens the current page in the selected environment.'),
           ],
-          'title' => t('Open on @label', ['@label' => $entity->label()]),
+          'title' => $this->t('Open on @label', ['@label' => $entity->label()]),
           'url' => Url::fromUri($entity->getUrl() . $current_path),
           'type' => 'link',
           'weight' => $entity->getWeight(),

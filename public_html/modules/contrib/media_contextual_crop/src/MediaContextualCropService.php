@@ -114,8 +114,8 @@ class MediaContextualCropService {
       (int) $old_image['#height'],
     );
 
+    // If Crop is created, return copy URI.
     return ($crop_created === TRUE) ? $new_uri : $old_image['#uri'];
-
   }
 
   /**
@@ -131,7 +131,7 @@ class MediaContextualCropService {
    * @return string
    *   New image source.
    */
-  private function multiCropTransformImageUri($image_uri, array $crop_data, $folder_name = 'media_contextual_crop') {
+  private function multiCropTransformImageUri(string $image_uri, array $crop_data, string $folder_name = 'media_contextual_crop') {
 
     $context = Html::cleanCssIdentifier($crop_data['context']);
 
@@ -167,7 +167,6 @@ class MediaContextualCropService {
 
     // Detect if the style change extension.
     $image_style = $crop_data['image_style'];
-
     $styles = $this->entityTypeManager->getStorage('image_style')->load($image_style);
     $effects = $styles->getEffects();
     $extension = '';
@@ -178,7 +177,7 @@ class MediaContextualCropService {
       }
     }
 
-    // Calculate possible derivative.
+    // Calculate possible derivative path.
     if ($extension == '') {
       $derivative = $scheme . '://styles/' . $image_style . '/' . $scheme . '/' . $folder_name . '/' . $context . '/' . $target;
     }
@@ -191,7 +190,7 @@ class MediaContextualCropService {
     }
 
     $real_path = $this->fileSystem->realpath($derivative);
-    // If derivativ existe remove file if exist.
+    // If a derivativ existe replace it.
     if ($real_path != FALSE  && file_exists($real_path)) {
       unlink($this->fileSystem->realpath($derivative));
     }
@@ -211,11 +210,39 @@ class MediaContextualCropService {
     foreach ($wrappers as $wrapper => $wrapper_data) {
       // Manage new file tree.
       if (file_exists($directory = $wrapper . '://' . $folder_name)) {
-        try {
-          $this->fileSystem->deleteRecursive($directory);
+
+        // Get all crops which use a file in directory.
+        $query = $this->entityTypeManager->getStorage('crop')->getQuery();
+        $result = $query
+          ->condition('uri', $directory . '%', 'LIKE')
+          ->accessCheck(TRUE)
+          ->execute();
+
+        // Load crops.
+        $crops = $this->entityTypeManager
+          ->getStorage('crop')
+          ->loadMultiple($result);
+
+        // Get used URI.
+        $used_uris = [];
+        /** @var \Drupal\crop\Entity\Crop $crop */
+        foreach ($crops as $crop) {
+          $used_uris[] = $crop->get('uri')->getString();
         }
-        catch (FileException $e) {
-          // Ignore failed deletes.
+
+        // Get copies uris in filesystem.
+        $files_uri = $this->fileSystem->scanDirectory($directory, '/^(.*)$/', ['recurse' => TRUE]);
+
+        foreach ($files_uri as $file_uri) {
+          // If a copie in filesystem are not used, clean it.
+          if (!in_array($file_uri->uri, $used_uris)) {
+            try {
+              $this->fileSystem->delete($file_uri->uri);
+            }
+            catch (FileException $e) {
+              // Ignore failed deletes.
+            }
+          }
         }
       }
     }
