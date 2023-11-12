@@ -5,7 +5,6 @@ namespace Drupal\puphpeteer\Plugin\PdfGenerator;
 use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Extension\ExtensionPathResolver;
-use Drupal\Core\Http\RequestStack;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
 use Drupal\Core\Routing\RouteProviderInterface;
@@ -14,9 +13,9 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\pdf_api\Plugin\PdfGeneratorBase;
 use Drupal\pdf_api\Plugin\PdfGeneratorInterface;
 use NigelCunningham\Puphpeteer\Puppeteer;
-use NigelCunningham\Rialto\Data\JsFunction;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * A PDF generator plugin for Puphpeteer.
@@ -200,8 +199,6 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
     $this->request = $requestStack->getCurrentRequest();
     $this->extensionPathResolver = $extensionPathResolver;
 
-    $settings = $this->settings->get();
-
     $options = [
       'logger' => $this->getSetting('debug') ? $logger : NULL,
       'log_browser_console' => $this->getSetting('log_to_browser_console'),
@@ -341,19 +338,24 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
     else {
       $this->isHeadless = $this->getSetting('headless');
       $newHeadless = $this->getSetting('headless_new');
+      $extraLaunchParams = $this->getSetting('chrome_extra_args') ?? '';
+      $extraLaunchParams = str_replace("\r", "", trim($extraLaunchParams));
+      $extraLaunchParams = empty($extraLaunchParams) ? [] :
+        explode("\n", $extraLaunchParams);
       $launchParams = [
-        'args' => [
+        'args' => array_merge([
           '--no-sandbox',
           '--disable-setuid-sandbox',
           '--start-maximized',
-        ],
+        ], $extraLaunchParams),
         'protocolTimeout' => 0,
         'headless' => $this->isHeadless,
         'ignoreHTTPSErrors' => TRUE,
         'defaultViewport' => NULL,
       ];
 
-      if ($this->getSetting('devTools')) {
+      if ($this->getSetting('devTools') ||
+        $this->getSetting('triggerDebugging')) {
         $launchParams['args'][] = '--auto-open-devtools-for-tabs';
       }
 
@@ -361,12 +363,12 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
         $launchParams['args'][] = '--dumpio';
       }
 
-      if (!empty($this->getSetting('remote_debugging_address'))) {
+      if (!empty(trim($this->getSetting('remote_debugging_address')))) {
         $launchParams['args'][] = '--remote-debugging-address=' .
           $this->getSetting('remote_debugging_address');
       }
 
-      if (!empty($this->getSetting('remote_debugging_port'))) {
+      if (!empty(trim($this->getSetting('remote_debugging_port')))) {
         $launchParams['args'][] = '--remote-debugging-port=' .
           $this->getSetting('remote_debugging_port');
       }
@@ -411,11 +413,18 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
       return;
     }
 
-    $this->tab = $this->browser->newPage();
+    // Get the default tab instead of opening a new one.
+    // This avoids the need to bring the new tab to the front, which we don't
+    // seem to be able to properly await.
+    $tabs = $this->browser->pages();
+    $this->tab = $tabs[0];
 
     if ($this->getSetting('triggerDebugging')) {
-      $this->tab->evaluate(JsFunction::createWithBody("debugger")
-        ->async(TRUE));
+      // As of 5 October 2023, I'm seeing this JS run consistently (a
+      // console.log always works) but a debugger call is hit and miss.
+      // Use a small timeout to seek to make it more reliable.
+      // https://bugs.chromium.org/p/chromium/issues/detail?id=1489548&q=debugger&can=1&sort=-opened
+      $this->tab->evaluateOnNewDocument("debugger;");
     }
 
     $filename = $this->extensionPathResolver->getPath('module', 'puphpeteer') .
@@ -429,8 +438,7 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
         case 'document_loaded':
           $waitFor = [
             'type' => 'event',
-            'name' => 'load',
-            'element' => 'window',
+            'success' => ['load' => 'window'],
           ];
           break;
 
@@ -601,10 +609,10 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
       }
     }
 
-    // Can we do the new Chrome headless?
-    $chromeVersion = $this->browser->version();
-
     if ($url) {
+      // Note that if debugging is enabled, it will trigger here.
+      // If the developer then closes the browser without
+      // getting the event occur, we'll use the error path here.
       $result = $this->tab->goto($url, ['timeout' => 0]);
       if ($result->status() !== 200) {
         $message = (string) $this->t("Failed to generate PDF from :url. Page returned status :status and text :text", [

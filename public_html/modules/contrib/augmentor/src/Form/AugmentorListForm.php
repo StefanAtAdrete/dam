@@ -2,12 +2,12 @@
 
 namespace Drupal\augmentor\Form;
 
+use Drupal\augmentor\AugmentorManager;
+use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\augmentor\AugmentorManager;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Component\Utility\Unicode;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

@@ -2,11 +2,11 @@
 
 namespace Drupal\augmentor\Form;
 
+use Drupal\augmentor\AugmentorManager;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\augmentor\AugmentorManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form for deleting an augmentor.

@@ -3,9 +3,9 @@
 namespace Drupal\augmentor;
 
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
-use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Augmentor plugin manager.

@@ -5,6 +5,9 @@ puphpeteer.settings:
     executable_path:
       type: string
       label: 'Path to node'
+    chrome_extra_args:
+      type: string
+      label: 'Extra arguments to add when starting Chrome'
     idle_timeout:
       type: string
       label: 'Idle timeout'
@@ -19,7 +22,7 @@ puphpeteer.settings:
       label: 'Log to node console?'
     debug:
       type: boolean
-      label: 'Enable TLS encryption automatically when supported by the remote host'
+      label: 'Enable debugging support'
     log_to_browser_console:
       type: string
       label: 'Log to browser console?'

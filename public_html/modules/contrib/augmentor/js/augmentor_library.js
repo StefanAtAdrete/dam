@@ -3,14 +3,14 @@
  * Prepare and send data to augmentor execute functions and handle the response.
  */
 
-(function ($, Drupal, drupalSettings) {
+(function ($, Drupal, drupalSettings, once) {
   'use strict';
 
   Drupal.behaviors.augmentor_library = {
     attach: function attach(context, settings) {
       var isLoading = false;
 
-      $(context).find('.augmentor-cta-link').each(function () {
+      $(once('augmentorCTAs', '.augmentor-cta-link', context)).each(function () {
         $(this).click(function (event) {
           event.preventDefault();
 
@@ -62,6 +62,14 @@
 
                         case 'select':
                           updateSelectField($(this), action, result, button);
+                          break;
+
+                        case 'select_regex':
+                          updateSelectRegexField($(this), action, result, button, data);
+                          break;
+
+                        case 'summary':
+                          updateSummaryField($(this), action, result);
                           break;
 
                         default:
@@ -159,6 +167,24 @@
       value = transformValue(action, targetField.val(), value, '');
       targetField.val(value);
     }
+  }
+
+  // Handle Summary fields updates.
+  async function updateSummaryField(targetField, action, value) {
+    // Only process the field element with the value;
+    const fieldId = targetField[0].id;
+    if (!fieldId.endsWith('value')) {
+      return;
+    }
+    // Get the field wrapper to make finding the summary easier.
+    const wrapper = targetField.closest('.field--type-text-with-summary')[0];
+    // Open, populate, and bring into view the summary.
+    const node_summary_button = wrapper.querySelector(".field-edit-link");
+    await node_summary_button.dispatchEvent(new Event("click"));
+    node_summary_button.scrollIntoView({ behavior: "smooth" });
+    const summaryField = wrapper.querySelector('.text-summary');
+    value = transformValue(action, summaryField.value, value, '');
+    summaryField.value = value;
   }
 
   // Handle File fields updates.
@@ -287,13 +313,74 @@
     $augmentorSelect.focus();
   }
 
+  // Handle select fields updates.
+  function updateSelectRegexField(targetField, action, value, button, data) {
+    if (typeof value === 'object') {
+      value = Object.values(value);
+    }
+
+    var $formWrapper = button.closest('.form-wrapper');
+    $formWrapper.find('.augmentor-select').remove();
+    $formWrapper.append('<select class="form-element form-element--type-select augmentor-select"></select>');
+
+    var $augmentorSelect = $formWrapper.find('.augmentor-select');
+
+    // Parse the configured regex pattern into a regex object.
+    const inputstring = data['regex'];
+    const flags = inputstring.replace(/.*\/([gimy]*)$/, '$1');
+    const pattern = inputstring.replace(new RegExp('^/(.*?)/' + flags + '$'), '$1');
+    const regex = new RegExp(pattern, flags);
+
+    // Look for the other confuguration options.
+    const result_pattern = data['result_pattern'] ?? '';
+    const explode_separator = data['explode_separator'] ?? '';
+    const match_index = data['match_index'] ?? 0;
+    let matched = '';
+
+    if (explode_separator.length) {
+      // Explode to an array using the provided separator.
+      let results = value[0].split(new RegExp(explode_separator));
+      for (let j = 0; j < results.length; j++) {
+        if (result_pattern.length) {
+          matched = results[j].replace(regex, result_pattern);
+        }
+        else {
+          matched = results[j].match(regex);
+          matched = matched[match_index];
+        }
+        var option = stripHtml(matched);
+        generateOption($augmentorSelect, option);
+      }
+    }
+    else {
+      // Find all matches of the provided pattern.
+      for (const match of value[0].matchAll(regex)) {
+        var option = stripHtml(match[match_index]);
+        generateOption($augmentorSelect, option);
+      }
+
+    }
+
+    $augmentorSelect.on('change', function () {
+      updateCkeditorField(targetField, action, this.value);
+      updateSimpleField(targetField, action, this.value);
+    });
+
+    $augmentorSelect.trigger('change');
+    $augmentorSelect.focus();
+  }
+
   // Helper to generate an option element.
   function generateOption(augmentorSelect, option) {
     option = stripHtml(option).trim();
+    let label = option;
+    if (label.length > 80) {
+      label = label.substring(0, 80) + '...';
+    }
 
     augmentorSelect.append($('<option>', {
       value: option,
-      text : option.substring(0, 80) + '...',
+      text : label,
     }));
   }
 
@@ -320,4 +407,4 @@
     txt.innerHTML = text;
     return txt.textContent || txt.innerText || "";
   }
-})(jQuery, Drupal, drupalSettings);
+})(jQuery, Drupal, drupalSettings, once);

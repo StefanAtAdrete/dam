@@ -2,14 +2,14 @@
 
 namespace Drupal\augmentor_ckeditor5\Plugin\CKEditor5Plugin;
 
+use Drupal\augmentor\AugmentorManager;
+use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableInterface;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableTrait;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginDefault;
-use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableInterface;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginDefinition;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\editor\EditorInterface;
-use Drupal\augmentor\AugmentorManager;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\editor\EditorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

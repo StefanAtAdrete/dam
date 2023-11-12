@@ -3,6 +3,7 @@
 namespace Drupal\pdf_api\Plugin\PdfGenerator;
 
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\pdf_api\Plugin\PdfGeneratorBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,7 +38,10 @@ class DompdfGenerator extends PdfGeneratorBase implements ContainerFactoryPlugin
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->generator = new Dompdf();
-    $this->generator->set_option('isRemoteEnabled', TRUE);
+    $options = new Options([
+      'isRemoteEnabled' => TRUE,
+    ]);
+    $this->generator->setOptions($options);
   }
 
   /**
@@ -71,6 +75,10 @@ class DompdfGenerator extends PdfGeneratorBase implements ContainerFactoryPlugin
    * {@inheritdoc}
    */
   public function setHeader($text) {
+    if (!$text) {
+      return;
+    }
+
     $canvas = $this->generator->get_canvas();
     $canvas->page_text(72, 18, $text, "", 11, [0, 0, 0]);
   }
@@ -79,15 +87,20 @@ class DompdfGenerator extends PdfGeneratorBase implements ContainerFactoryPlugin
    * {@inheritdoc}
    */
   public function addPage($html) {
-    $this->generator->load_html($html);
+    $this->generator->loadHtml($html);
     $this->generator->render();
+    if (is_array($GLOBALS['_dompdf_warnings'])) {
+      foreach ($GLOBALS['_dompdf_warnings'] as $warning) {
+        \Drupal::logger('pdf api')->warning($warning);
+      }
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function setPageOrientation($orientation = PdfGeneratorInterface::PORTRAIT) {
-    $this->generator->set_paper("", $orientation);
+    $this->generator->setPaper("", $orientation);
   }
 
   /**
@@ -95,7 +108,7 @@ class DompdfGenerator extends PdfGeneratorBase implements ContainerFactoryPlugin
    */
   public function setPageSize($page_size) {
     if ($this->isValidPageSize($page_size)) {
-      $this->generator->set_paper($page_size);
+      $this->generator->setPaper($page_size);
     }
   }
 

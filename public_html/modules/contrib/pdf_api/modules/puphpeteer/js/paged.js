@@ -3,16 +3,16 @@
  * Attaches behaviour to trigger Paged.js.
  */
 
-(function (Drupal, drupalSettings) {
+(function pdfApiPuphpeteerPagesBehaviors(Drupal) {
   let timeout = false;
   let done = false;
 
   window.PagedConfig = {
-    auto: false
-  }
+    auto: false,
+  };
 
   Drupal.behaviors.pagedJs = {
-    attach(context) {
+    attach() {
       if (done) {
         return;
       }
@@ -24,7 +24,7 @@
       timeout = setTimeout(() => {
         done = true;
         window.PagedPolyfill.preview();
-      }, 2500)
+      }, 2500);
     },
   };
-})(Drupal, drupalSettings);
+})(Drupal);

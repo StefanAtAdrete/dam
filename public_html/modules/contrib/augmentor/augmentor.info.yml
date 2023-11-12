@@ -2,12 +2,12 @@ name: Augmentor
 type: module
 description: Integration module which allows content to be augmented in Drupal via connections with external services.
 package: Augmentor
-core_version_requirement: ^9.3 || ^10
+core_version_requirement: ^9.5 || ^10
 configure: augmentor.list
 dependencies:
   - key:key
 
-# Information added by Drupal.org packaging script on 2023-06-07
-version: '1.0.5'
+# Information added by Drupal.org packaging script on 2023-11-06
+version: '1.1.0'
 project: 'augmentor'
-datestamp: 1686154002
+datestamp: 1699257289

@@ -1,4 +1,5 @@
 executable_path: ''
+chrome_extra_args: ''
 idle_timeout: 5
 read_timeout: 5
 stop_timeout: 5

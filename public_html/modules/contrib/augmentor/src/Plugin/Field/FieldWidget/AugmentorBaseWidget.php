@@ -2,20 +2,21 @@
 
 namespace Drupal\augmentor\Plugin\Field\FieldWidget;
 
+use Drupal\augmentor\AugmentorManager;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\text\Plugin\Field\FieldWidget\TextareaWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\augmentor\AugmentorManager;
-use Drupal\Core\Field\FieldDefinitionInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
-use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\text\Plugin\Field\FieldWidget\TextareaWidget;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base class for the Augmentor field widgets.
  */
 abstract class AugmentorBaseWidget extends TextareaWidget implements ContainerFactoryPluginInterface {
+
   /**
    * The augmentor plugin manager.
    *
@@ -171,7 +172,7 @@ abstract class AugmentorBaseWidget extends TextareaWidget implements ContainerFa
   public static function defaultSettings() {
     return [
       'augmentor' => '',
-      'source_fields' => '',
+      'source_fields' => [],
       'targets' => [],
       'action' => '',
       'trim' => '',

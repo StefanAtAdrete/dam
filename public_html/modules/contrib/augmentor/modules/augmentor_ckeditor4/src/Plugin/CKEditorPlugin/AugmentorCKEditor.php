@@ -2,14 +2,14 @@
 
 namespace Drupal\augmentor_ckeditor4\Plugin\CKEditorPlugin;
 
-use Drupal\ckeditor\CKEditorPluginBase;
-use Drupal\editor\Entity\Editor;
-use Drupal\Core\Url;
-use Drupal\ckeditor\CKEditorPluginConfigurableInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\augmentor\AugmentorManager;
+use Drupal\ckeditor\CKEditorPluginBase;
+use Drupal\ckeditor\CKEditorPluginConfigurableInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
+use Drupal\editor\Entity\Editor;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines the "augmentor_ckeditor" plugin.

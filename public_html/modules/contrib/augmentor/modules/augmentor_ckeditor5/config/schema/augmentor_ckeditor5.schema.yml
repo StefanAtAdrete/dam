@@ -1,7 +1,10 @@
 ckeditor5.plugin.augmentor_ckeditor5_augmentor:
-  type: mapping
-  label: Augmentor CKEditor 5 configuration
+  type: filter
+  label: 'Augmentor CKEditor 5 configuration'
   mapping:
     augmentors:
-      type: mapping
+      type: sequence
       label: Augmentors
+      sequence:
+        type: string
+        label: 'Augmentor'

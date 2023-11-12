@@ -210,8 +210,9 @@ class MpdfGenerator extends PdfGeneratorBase implements ContainerFactoryPluginIn
     $this->setHeader($this->headerContent);
     $this->setFooter($this->footerContent);
     $stylesheet = '.node_view  { display: none; }';
+    $this->generator->allow_charset_conversion = FALSE;
     $this->generator->WriteHTML($stylesheet, 1);
-    $this->generator->WriteHTML(utf8_encode($this->pdfContent), 0);
+    $this->generator->WriteHTML($this->pdfContent, 0);
   }
 
   /**

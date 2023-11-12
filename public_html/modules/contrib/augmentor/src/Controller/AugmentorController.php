@@ -2,12 +2,12 @@
 
 namespace Drupal\augmentor\Controller;
 
+use Drupal\augmentor\AugmentorManager;
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Access\CsrfTokenGenerator;
-use Drupal\augmentor\AugmentorManager;
-use Drupal\Component\Serialization\Json;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 

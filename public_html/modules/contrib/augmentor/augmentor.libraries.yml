@@ -7,5 +7,6 @@ augmentor_library:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/once    
     - core/drupalSettings
     - core/drupal.message
