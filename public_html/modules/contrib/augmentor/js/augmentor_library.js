@@ -27,7 +27,7 @@
             var explode = data['explode_separator'];
             var button = $(this);
 
-            if (sourceFields.length != 0) {
+            if (sourceFields.length != 0 && type != 'file' && type != 'static') {
               data.input = getFieldValues(sourceFields);
             }
 
@@ -150,13 +150,32 @@
 
   // Handle CKEditor fields updates.
   function updateCkeditorField(targetField, action, value) {
-    if (typeof CKEDITOR !== 'undefined') {
-      var targetField = targetField.attr('id');
-      var targetFieldEditor = CKEDITOR.instances[targetField];
+    const targetFieldId = targetField.attr('id');
 
-      if (typeof targetFieldEditor != 'undefined') {
-        value = transformValue(action, targetFieldEditor.getData(), value, '\n');
-        targetFieldEditor.setData(value);
+    if (typeof CKEDITOR !== 'undefined') {
+      // CKEditor 4
+      updateCKEditor4Field(targetFieldId, action, value);
+    } else if (Drupal && Drupal.CKEditor5Instances) {
+      // CKEditor 5
+      updateCKEditor5Field(targetFieldId, action, value);
+    }
+  }
+
+  // Handle CKEditor 4 fields updates.
+  function updateCKEditor4Field(targetFieldId, action, value) {
+    const targetFieldEditor = CKEDITOR.instances[targetFieldId];
+    if (targetFieldEditor) {
+      value = transformValue(action, targetFieldEditor.getData(), value, '\n');
+      targetFieldEditor.setData(value);
+    }
+  }
+
+  // Handle CKEditor 5 fields updates.
+  function updateCKEditor5Field(targetFieldId, action, value) {
+    for (let [key, editor] of Drupal.CKEditor5Instances.entries()) {
+      if (editor.sourceElement.id === targetFieldId) {
+        value = transformValue(action, editor.getData(), value, '\n');
+        editor.setData(value);
       }
     }
   }

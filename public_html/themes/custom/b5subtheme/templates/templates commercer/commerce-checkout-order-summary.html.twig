@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the checkout order summary.
+ *
+ * The rendered order totals come from commerce-order-total-summary.html.twig.
+ * See commerce-order-receipt.html.twig for examples of manual total theming.
+ *
+ * Available variables:
+ * - order_entity: The order entity.
+ * - checkout_step: The current checkout step.
+ * - totals: An array of order total values with the following keys:
+ *   - subtotal: The order subtotal price.
+ *   - adjustments: An array of adjustment totals:
+ *     - type: The adjustment type.
+ *     - label: The adjustment label.
+ *     - total: The adjustment total price.
+ *     - weight: The adjustment weight, taken from the adjustment type.
+ *   - total: The order total price.
+ * - rendered_totals: The rendered order totals.
+ */
+#}
+<div class="contanier">
+	{% block order_items %}
+		{% for order_item in order_entity.getItems %}
+			<table class="table">
+				<tbody>
+					<tr>
+						{% if order_item.hasPurchasedEntity %}
+							<td>{{ order_item.getPurchasedEntity|commerce_entity_render('checkout_summary') }}</td>
+						{% else %}
+							<td>{{- order_item.label -}}</td>
+						{% endif %}
+						<td>{{ order_item.getQuantity|number_format }}&nbsp;x&nbsp;</td>
+						<td>{{- order_item.getTotalPrice|commerce_price_format -}}</td>
+					</tr>
+				{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+</div>{% endblock %}{% block totals %}
+{{ rendered_totals }}{% endblock %}

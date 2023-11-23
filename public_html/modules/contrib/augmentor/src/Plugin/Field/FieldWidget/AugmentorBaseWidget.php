@@ -83,6 +83,7 @@ abstract class AugmentorBaseWidget extends TextareaWidget implements ContainerFa
     $source_fields = $this->getSetting('source_fields');
     $entity = $items->getEntity();
     $source_fields_values = [];
+    $type = 'dynamic';
 
     foreach ($source_fields as $field_name) {
       $field_type = $entity->get($field_name)->getFieldDefinition()->getType();
@@ -102,7 +103,8 @@ abstract class AugmentorBaseWidget extends TextareaWidget implements ContainerFa
             case 'file':
               $fid = $value['target_id'];
               $file = $this->fileStorage->load($fid);
-              $value = $file->createFileUrl(FALSE);
+              $value = $file->getFileUri();
+              $type = 'static';
               break;
 
             default:
@@ -140,6 +142,7 @@ abstract class AugmentorBaseWidget extends TextareaWidget implements ContainerFa
         'source_fields' => $source_fields_values,
         'augmentor' => $augmentor,
         'explode_separator' => $explode_separator,
+        'type' => $type,
       ],
     ];
 

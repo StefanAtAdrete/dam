@@ -39,3 +39,7 @@ tooling:
     service: appserver
     env:
       DRUSH_OPTIONS_URI: "https://triton.lndo.site"
+excludes:
+  - vendor
+  - node_modules
+  - modules/contrib
