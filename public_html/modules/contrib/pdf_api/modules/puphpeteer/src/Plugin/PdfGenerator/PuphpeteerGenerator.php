@@ -171,6 +171,13 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
   protected $puppeteerRunning = FALSE;
 
   /**
+   * Puphpeteer configuration for this generator.
+   *
+   * @var \Drupal\Core\Config\Entity\ConfigEntityInterface
+   */
+  protected $settings;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(
@@ -215,6 +222,7 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
     }
 
     try {
+      // @phpstan-ignore-next-line
       $this->generator = new Puppeteer($options);
     }
     catch (\Exception $e) {
@@ -328,6 +336,7 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
    */
   public function startBrowser() {
     // Start the browser, as configured.
+    $newHeadless = NULL;
     $this->isService = $this->getSetting('service');
     if ($this->isService) {
       $this->isHeadless = FALSE;
@@ -500,17 +509,13 @@ class PuphpeteerGenerator extends PdfGeneratorBase implements ContainerFactoryPl
    * Close the browser.
    */
   public function closeBrowser() {
-    if ($this->isService) {
-      if ($this->tab) {
-        $this->tab->close();
-        $this->tab = NULL;
-      }
+    if ($this->tab) {
+      $this->tab->close();
+      $this->tab = NULL;
     }
-    else {
-      if ($this->browser) {
-        $this->browser->close();
-        $this->browser = NULL;
-      }
+    if (!$this->isService && $this->browser) {
+      $this->browser->close();
+      $this->browser = NULL;
     }
   }
 

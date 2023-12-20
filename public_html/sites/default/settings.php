@@ -264,7 +264,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'imqHczTDZscSuEdBb_-7d_0LWf3xkoj4l2LJq1h8BJyU3CgWCijItbzj8VZ6JWjBKwCGvRAzIg';
+$settings['hash_salt'] = 'RH8mlyh5O4AQ_7AgQzuds3HdMbOTwNSFTaiUGc1Dm_5qcwnB8EmEVcOoCZmGJlbchnNooW60Zg';
 
 /**
  * Deployment identifier.
@@ -725,12 +725,6 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  * @see https://www.drupal.org/docs/installing-drupal/trusted-host-settings
  */
 
-  $settings['trusted_host_patterns'] = [
-    '^triton.lndo\.site$',
-    '^.+\.triton\.site$',
-    '^triton\.site$',
-    '^.+\.triton.lndo\.site$',
-  ];
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
@@ -839,23 +833,21 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
+
+$settings['simple_sitemap_engines.index_now.key'] = '67c69908-bb64-4160-8738-62ba778f0972';
+
 $databases['default']['default'] = array (
-  'database' => 'drupal9',
-  'username' => 'root',
-  'password' => '',
+  'database' => 'lamp',
+  'username' => 'lamp',
+  'password' => 'lamp',
   'prefix' => '',
   'host' => 'database',
   'port' => '3306',
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'driver' => 'mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-    'init_commands' => [
+  'init_commands' => [
     'isolation_level' => 'SET SESSION tx_isolation=\'READ-COMMITTED\'',
   ],
 );
 $settings['config_sync_directory'] = '../config/sync';
-
-
- if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-   include $app_root . '/' . $site_path . '/settings.local.php';
- }

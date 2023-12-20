@@ -19,14 +19,6 @@ class CartRemoveItemResourceTest extends CartResourceTestBase {
   protected static $resourceConfigId = 'commerce_cart_remove_item';
 
   /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-    $this->setUpAuthorization('DELETE');
-  }
-
-  /**
    * Test request to delete item from non-existent cart.
    */
   public function testNoCartRemoveItem() {

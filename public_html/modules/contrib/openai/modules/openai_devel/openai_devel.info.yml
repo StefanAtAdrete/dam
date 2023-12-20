@@ -1,0 +1,15 @@
+name: OpenAI Devel Generate
+type: module
+description: Adds GPT generational capability to Devel generate commands.
+package: OpenAI
+core_version_requirement: ^10
+dependencies:
+  - openai:openai
+  - devel:devel_generate
+tags:
+  - developer
+
+# Information added by Drupal.org packaging script on 2023-11-20
+version: '1.0.0-beta2'
+project: 'openai'
+datestamp: 1700488332

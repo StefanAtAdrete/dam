@@ -27,7 +27,7 @@ switch (waitFor.type) {
               element = document.querySelector(elementName);
           }
 
-          element.addEventListener((eventName2, e) => {
+          element.addEventListener(eventName, (e) => {
             // Return the name of the event that occurred.
             resolve(e.type);
 

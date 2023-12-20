@@ -27,6 +27,13 @@ abstract class PdfGeneratorBase extends PluginBase implements PdfGeneratorInterf
   protected $entity;
 
   /**
+   * The pdf generator.
+   *
+   * @var object
+   */
+  protected $generator;
+
+  /**
    * {@inheritdoc}
    */
   public function getId() {
@@ -58,10 +65,12 @@ abstract class PdfGeneratorBase extends PluginBase implements PdfGeneratorInterf
    *   height dimensions respectively. False if the page size is unknown.
    */
   protected function getPageDimensions($page_size) {
-    if ($this->isValidPageSize($page_size)) {
-      $page_sizes = $this->pageSizes();
-      return $page_sizes[$page_size];
+    if (!$this->isValidPageSize($page_size)) {
+      return FALSE;
     }
+    $page_sizes = $this->pageSizes();
+
+    return $page_sizes[$page_size];
   }
 
   /**

@@ -31,7 +31,7 @@ class FieldNormalizer extends CoreFieldNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function supportsNormalization($data, $format = NULL) {
+  public function supportsNormalization($data, $format = NULL, array $context = []): bool {
     $supported = parent::supportsNormalization($data, $format);
     if ($supported) {
       $route = $this->routeMatch->getRouteObject();
@@ -43,7 +43,7 @@ class FieldNormalizer extends CoreFieldNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function normalize($field_item, $format = NULL, array $context = []) {
+  public function normalize($field_item, $format = NULL, array $context = []): array|string|int|float|bool|\ArrayObject|NULL {
     /** @var \Drupal\Core\Field\FieldItemListInterface $field_item */
     $cardinality = $field_item->getFieldDefinition()->getFieldStorageDefinition()->getCardinality();
     $data = parent::normalize($field_item, $format, $context);
@@ -59,7 +59,7 @@ class FieldNormalizer extends CoreFieldNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function denormalize($data, $class, $format = NULL, array $context = []) {
+  public function denormalize($data, $class, $format = NULL, array $context = []): mixed {
     if (!is_array($data)) {
       $data = [$data];
     }

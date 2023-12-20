@@ -100,7 +100,7 @@ class TBMegaMenuAdminController extends ControllerBase {
     $result = 'Invalid TB Megamenu Ajax request!';
 
     // All ajax calls should use json data now.
-    if ($request->getContentType() == 'json') {
+    if ($request->getContentTypeFormat() == 'json') {
       $data = Json::decode($request->getContent());
       $action = $data['action'];
     }

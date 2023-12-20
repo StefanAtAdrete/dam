@@ -7,6 +7,7 @@ use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\Core\Entity\Entity\EntityFormMode;
 use Drupal\Tests\commerce_order\Kernel\OrderKernelTestBase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
@@ -15,10 +16,12 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
  */
 final class CartAddResourceSelectStoreExceptionTest extends OrderKernelTestBase {
 
+  use ProphecyTrait;
+
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'serialization',
     'commerce_product',
     'commerce_cart',

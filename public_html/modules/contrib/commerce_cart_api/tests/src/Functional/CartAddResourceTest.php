@@ -19,14 +19,6 @@ class CartAddResourceTest extends CartResourceTestBase {
   protected static $resourceConfigId = 'commerce_cart_add';
 
   /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-    $this->setUpAuthorization('POST');
-  }
-
-  /**
    * Tests malformed payloads.
    */
   public function testMalformedPayload() {
@@ -126,6 +118,9 @@ class CartAddResourceTest extends CartResourceTestBase {
     $this->assertEquals($response_body[$item_delta]['total_price']['currency_code'], 'USD');
   }
 
+  /**
+   * Tests combining order items.
+   */
   public function testCombine() {
     $url = Url::fromUri('base:cart/add');
     $url->setOption('query', ['_format' => static::$format]);

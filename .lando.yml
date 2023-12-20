@@ -34,11 +34,11 @@ proxy:
     - mail.triton.lndo.site
   phpmyadmin:
     - phpmyadmin.triton.lndo.site
+  appserver:
+    - triton.lndo.site:8080
 tooling:
   drush:
     service: appserver
-    env:
-      DRUSH_OPTIONS_URI: "https://triton.lndo.site"
 excludes:
   - vendor
   - node_modules

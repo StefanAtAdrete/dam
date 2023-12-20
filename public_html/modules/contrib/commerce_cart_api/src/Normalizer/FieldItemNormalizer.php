@@ -36,7 +36,7 @@ class FieldItemNormalizer extends CoreFieldItemNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function supportsNormalization($data, $format = NULL) {
+  public function supportsNormalization($data, $format = NULL, array $context = []): bool {
     $supported = parent::supportsNormalization($data, $format);
     if ($supported) {
       $route = $this->routeMatch->getRouteObject();
@@ -48,7 +48,7 @@ class FieldItemNormalizer extends CoreFieldItemNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function normalize($field_item, $format = NULL, array $context = []) {
+  public function normalize($field_item, $format = NULL, array $context = []): float|array|\ArrayObject|bool|int|string|null {
     $data = parent::normalize($field_item, $format, $context);
     // This will always be true, but here for type hinting for IDE.
     if (!$field_item instanceof FieldItemInterface) {

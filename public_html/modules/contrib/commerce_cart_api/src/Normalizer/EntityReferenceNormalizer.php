@@ -45,7 +45,7 @@ class EntityReferenceNormalizer extends EntityReferenceFieldItemNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function supportsNormalization($data, $format = NULL) {
+  public function supportsNormalization($data, $format = NULL, array $context = []): bool {
     $supported = parent::supportsNormalization($data, $format);
     if ($supported) {
       $route = $this->routeMatch->getRouteObject();
@@ -59,7 +59,7 @@ class EntityReferenceNormalizer extends EntityReferenceFieldItemNormalizer {
   /**
    * {@inheritdoc}
    */
-  public function normalize($field_item, $format = NULL, array $context = []) {
+  public function normalize($field_item, $format = NULL, array $context = []): array|string|int|float|bool|\ArrayObject|NULL {
     assert($field_item instanceof EntityReferenceItem);
     $entity = $field_item->get('entity')->getValue();
     return $this->serializer->normalize($entity, $format, $context);
@@ -77,6 +77,8 @@ class EntityReferenceNormalizer extends EntityReferenceFieldItemNormalizer {
 
   /**
    * {@inheritdoc}
+   *
+   * @todo remove this when Drupal 9.x support is dropped.
    */
   public function hasCacheableSupportsMethod(): bool {
     return FALSE;

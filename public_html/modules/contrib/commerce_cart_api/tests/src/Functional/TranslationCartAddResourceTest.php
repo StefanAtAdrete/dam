@@ -18,7 +18,7 @@ class TranslationCartAddResourceTest extends CartResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'language',
     'content_translation',
   ];
@@ -31,9 +31,8 @@ class TranslationCartAddResourceTest extends CartResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
-    $this->setUpAuthorization('POST');
 
     // Add a new language.
     ConfigurableLanguage::createFromLangcode('fr')->save();

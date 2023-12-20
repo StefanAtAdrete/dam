@@ -1,8 +1,0 @@
-uuid: c0e0ebda-d46a-49fb-8cc1-2029eacb9f41
-langcode: en
-status: true
-dependencies: {  }
-id: cta_block
-label: 'CTA block'
-revision: 0
-description: 'Translateble CTA block'

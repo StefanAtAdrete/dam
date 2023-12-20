@@ -6,6 +6,8 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\pdf_api\Plugin\PdfGeneratorBase;
+use Drupal\pdf_api\Plugin\PdfGeneratorInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 // Disable DOMPDF's internal autoloader if you are using Composer.
@@ -32,11 +34,18 @@ class DompdfGenerator extends PdfGeneratorBase implements ContainerFactoryPlugin
   protected $generator;
 
   /**
+   * Instance of the logger class.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, LoggerInterface $logger) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-
+    $this->logger = $logger;
     $this->generator = new Dompdf();
     $options = new Options([
       'isRemoteEnabled' => TRUE,
@@ -52,6 +61,7 @@ class DompdfGenerator extends PdfGeneratorBase implements ContainerFactoryPlugin
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('logger.channel.pdf_api')
     );
   }
 
@@ -91,7 +101,7 @@ class DompdfGenerator extends PdfGeneratorBase implements ContainerFactoryPlugin
     $this->generator->render();
     if (is_array($GLOBALS['_dompdf_warnings'])) {
       foreach ($GLOBALS['_dompdf_warnings'] as $warning) {
-        \Drupal::logger('pdf api')->warning($warning);
+        $this->logger->warning($warning);
       }
     }
   }

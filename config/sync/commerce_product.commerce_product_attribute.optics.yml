@@ -1,7 +1,0 @@
-uuid: 37565af3-bf11-4a07-ad90-0980f85cd50b
-langcode: en
-status: true
-dependencies: {  }
-id: optics
-label: 'Optics (degrees)'
-elementType: select

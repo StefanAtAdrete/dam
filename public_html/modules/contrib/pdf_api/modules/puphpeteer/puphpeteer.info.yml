@@ -5,7 +5,7 @@ core_version_requirement: ^9 || ^10
 dependencies:
   - pdf_api:pdf_api
 
-# Information added by Drupal.org packaging script on 2023-11-07
-version: '2.4.1'
+# Information added by Drupal.org packaging script on 2023-12-16
+version: '2.4.2'
 project: 'pdf_api'
-datestamp: 1699378423
+datestamp: 1702690873

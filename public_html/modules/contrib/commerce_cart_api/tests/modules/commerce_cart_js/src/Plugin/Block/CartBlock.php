@@ -3,8 +3,10 @@
 namespace Drupal\commerce_cart_js\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a cart block.
@@ -15,16 +17,47 @@ use Drupal\Core\Url;
  *   category = @Translation("Commerce")
  * )
  */
-class CartBlock extends BlockBase {
+class CartBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The module extension list.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected $moduleExtensionList;
+
+  /**
+   * The theme registry used to render an output.
+   *
+   * @var \Drupal\Core\Theme\Registry
+   */
+  protected $themeRegistry;
+
+  /**
+   * The Twig theme registry loader.
+   *
+   * @var \Twig\Loader\LoaderInterface
+   */
+  protected $themeRegistryLoader;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance->moduleExtensionList = $container->get('extension.list.module');
+    $instance->themeRegistry = $container->get('theme.registry');
+    $instance->themeRegistryLoader = $container->get('twig.loader.theme_registry');
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
    */
   public function build() {
-    $registry = \Drupal::getContainer()->get('theme.registry')->get();
+    $registry = $this->themeRegistry->get();
     $cart_block_theme = $registry['commerce_cart_js_block'];
-    $twig_theme_registry = \Drupal::getContainer()->get('twig.loader.theme_registry');
-    $twig = $twig_theme_registry->getSourceContext($cart_block_theme['template'] . '.html.twig');
+    $twig = $this->themeRegistryLoader->getSourceContext($cart_block_theme['template'] . '.html.twig');
     return [
       '#attached' => [
         'library' => [
@@ -35,7 +68,7 @@ class CartBlock extends BlockBase {
             'template' => $twig->getCode(),
             'context' => [
               'url' => Url::fromRoute('commerce_cart.page')->toString(),
-              'icon' => file_create_url(drupal_get_path('module', 'commerce') . '/icons/ffffff/cart.png'),
+              'icon' => $this->moduleExtensionList->getPath('commerce') . '/icons/ffffff/cart.png',
             ],
           ],
         ],

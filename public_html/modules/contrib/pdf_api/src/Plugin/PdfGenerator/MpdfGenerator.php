@@ -3,6 +3,7 @@
 namespace Drupal\pdf_api\Plugin\PdfGenerator;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\pdf_api\Plugin\PdfGeneratorBase;
 use Drupal\pdf_api\Plugin\PdfGeneratorInterface;
@@ -58,13 +59,30 @@ class MpdfGenerator extends PdfGeneratorBase implements ContainerFactoryPluginIn
   protected $tmpDir;
 
   /**
+   * The file system service.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, FileSystemInterface $file_system) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+
+    $this->fileSystem = $file_system;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
       $plugin_id,
-      $plugin_definition
+      $plugin_definition,
+      $container->get('file_system')
     );
   }
 
@@ -185,10 +203,9 @@ class MpdfGenerator extends PdfGeneratorBase implements ContainerFactoryPluginIn
 
     $orientation = $options['orientation'] ? $options['orientation'] : 'P';
 
-    $filesystem = \Drupal::service('file_system');
     $random = new Random();
-    $this->tmpDir = $filesystem->getTempDirectory() . '/' . $random->name(16, TRUE);
-    $filesystem->mkdir($this->tmpDir);
+    $this->tmpDir = $this->fileSystem->getTempDirectory() . '/' . $random->name(16, TRUE);
+    $this->fileSystem->mkdir($this->tmpDir);
 
     $config = [
       'format' => $this->isValidPageSize($options['sheet-size']) ? $options['sheet-size'] : 'A4',
@@ -219,8 +236,7 @@ class MpdfGenerator extends PdfGeneratorBase implements ContainerFactoryPluginIn
    * Post generation cleanup.
    */
   protected function postGenerate() {
-    $filesystem = \Drupal::service('file_system');
-    $filesystem->deleteRecursive($this->tmpDir);
+    $this->fileSystem->deleteRecursive($this->tmpDir);
   }
 
 }

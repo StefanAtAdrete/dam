@@ -6,8 +6,8 @@ use Drupal\commerce_cart\CartSessionInterface;
 use Drupal\commerce_cart_api\CartTokenSession;
 use Drupal\Core\TempStore\SharedTempStoreFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -93,7 +93,7 @@ final class CartTokenSubscriber implements EventSubscriberInterface {
    *   The response event.
    */
   public function onResponse(ResponseEvent $event) {
-    if (!$event->isMasterRequest()) {
+    if (!$event->isMainRequest()) {
       return;
     }
     $request = $event->getRequest();

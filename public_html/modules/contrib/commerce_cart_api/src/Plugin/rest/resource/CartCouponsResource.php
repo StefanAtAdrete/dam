@@ -93,12 +93,36 @@ class CartCouponsResource extends CartResourceBase {
     );
   }
 
+  /**
+   * Handles GET requests.
+   *
+   * @param \Drupal\commerce_order\Entity\OrderInterface $commerce_order
+   *   The order.
+   *
+   * @return \Drupal\rest\ResourceResponse
+   *   The resource response.
+   */
   public function get(OrderInterface $commerce_order) {
     $response = new ResourceResponse($commerce_order->get('coupons'));
     $response->addCacheableDependency($commerce_order);
     return $response;
   }
 
+  /**
+   * Handles PATCH requests.
+   *
+   * @param \Drupal\commerce_order\Entity\OrderInterface $commerce_order
+   *   The order.
+   * @param array $unserialized
+   *   The un-serialized payload.
+   *
+   * @return \Drupal\rest\ModifiedResourceResponse|void
+   *   The modified resource response.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
+   */
   public function patch(OrderInterface $commerce_order, array $unserialized) {
     // Add coupons.
     if (!isset($unserialized['coupon_code'])) {
@@ -125,6 +149,18 @@ class CartCouponsResource extends CartResourceBase {
     }
   }
 
+  /**
+   * Deletes the given order.
+   *
+   * @param \Drupal\commerce_order\Entity\OrderInterface $commerce_order
+   *   The order to delete.
+   *
+   * @return \Drupal\rest\ModifiedResourceResponse
+   *   The modified resource response.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
+   */
   public function delete(OrderInterface $commerce_order) {
     $commerce_order->get('coupons')->setValue(NULL);
     $commerce_order->setRefreshState(OrderInterface::REFRESH_ON_SAVE);

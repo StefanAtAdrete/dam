@@ -2,8 +2,10 @@
 
 namespace Drupal\puphpeteer\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\pdf_api\PdfGeneratorPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,11 +14,34 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Configuration extends ConfigFormBase {
 
   /**
+   * The plugin manager.
+   *
+   * @var \Drupal\pdf_api\PdfGeneratorPluginManager
+   */
+  protected $pdfGeneratorManager;
+
+  /**
+   * Constructs a \Drupal\system\ConfigFormBase object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   * @param \Drupal\pdf_api\PdfGeneratorPluginManager $pdf_generator_manager
+   *   The plugin manager.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, PdfGeneratorPluginManager $pdf_generator_manager) {
+    $this
+      ->setConfigFactory($config_factory);
+
+    $this->pdfGeneratorManager = $pdf_generator_manager;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('plugin.manager.pdf_generator')
     );
   }
 
@@ -398,11 +423,8 @@ class Configuration extends ConfigFormBase {
           ':version' => $output[0],
         ]));
 
-      // Try to get Chrome version.
-      $pdfGeneratorManager = \Drupal::getContainer()
-        ->get('plugin.manager.pdf_generator');
       try {
-        $generator = $pdfGeneratorManager
+        $generator = $this->pdfGeneratorManager
           ->createInstance('puphpeteer', []);
         $generator->startBrowser();
         $chromeVersion = $generator->getBrowser()->version();

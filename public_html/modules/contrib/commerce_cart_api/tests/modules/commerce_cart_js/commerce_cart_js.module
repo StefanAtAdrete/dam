@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Provides cart block and form replacements using Backbone.js and Underscore.
+ */
+
+/**
  * Implements hook_theme().
  */
 function commerce_cart_js_theme($existing, $type, $theme, $path) {

@@ -25,6 +25,7 @@ class Puphpeteer extends ControllerBase implements ContainerInjectionInterface {
   public function __construct() {
     if (!self::$instance) {
       $config = $this->config('puphpeteer')->get();
+      // @phpstan-ignore-next-line
       self::$instance = new Puppeteer([
         'executable_path' => $config['executable_path'],
         'idle_timeout' => $config['idle_timeout'],

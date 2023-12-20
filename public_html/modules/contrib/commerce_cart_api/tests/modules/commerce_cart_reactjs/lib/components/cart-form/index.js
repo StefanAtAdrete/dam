@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {baseUrl} from "../../utils";
 import superagent from 'superagent';
 import Cart from "./cart";

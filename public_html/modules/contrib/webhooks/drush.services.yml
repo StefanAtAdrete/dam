@@ -1,6 +1,0 @@
-services:
-  webhooks.commands:
-    class: \Drupal\webhooks\Commands\WebhooksCommands
-    arguments: ['@webhooks.service', '@entity_type.manager']
-    tags:
-      - { name: drush.command }

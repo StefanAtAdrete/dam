@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {object} from 'prop-types';
 import {baseUrl, formatPrice} from "../../utils";
 import superagent from 'superagent';

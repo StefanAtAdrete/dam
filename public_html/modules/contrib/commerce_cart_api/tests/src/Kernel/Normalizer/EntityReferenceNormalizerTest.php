@@ -14,12 +14,15 @@ use Drupal\Core\DependencyInjection\ServiceModifierInterface;
 use Drupal\Core\Entity\Entity\EntityFormMode;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Tests\commerce_order\Kernel\OrderKernelTestBase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Routing\Route;
 
 /**
  * @group commerce_cart_api
  */
 class EntityReferenceNormalizerTest extends OrderKernelTestBase implements ServiceModifierInterface {
+
+  use ProphecyTrait;
 
   /**
    * @var \Drupal\commerce_order\Entity\Order
@@ -29,7 +32,7 @@ class EntityReferenceNormalizerTest extends OrderKernelTestBase implements Servi
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'serialization',
     'commerce_product',
     'commerce_cart',
@@ -124,6 +127,8 @@ class EntityReferenceNormalizerTest extends OrderKernelTestBase implements Servi
     /** @var \Drupal\commerce_order\Entity\Order $order */
     $order = Order::create([
       'type' => 'default',
+      'store_id' => $this->store->id(),
+      'state' => 'completed',
     ]);
     /** @var \Drupal\commerce_order\Entity\OrderItem $order_item */
     $order_item = OrderItem::create([
@@ -141,9 +146,15 @@ class EntityReferenceNormalizerTest extends OrderKernelTestBase implements Servi
     $product_variation->save();
     $product->addVariation($product_variation);
     $product->save();
+    $order->save();
+    $order_item->set('order_id', $order->id());
     $order_item->get('purchased_entity')->appendItem($product_variation);
+    $order_item->save();
+    $order_item = $this->reloadEntity($order_item);
 
     $order->addItem($order_item);
+    $order->save();
+    $order = $this->reloadEntity($order);
     $this->order = $order;
   }
 
@@ -165,7 +176,7 @@ class EntityReferenceNormalizerTest extends OrderKernelTestBase implements Servi
   }
 
   /**
-   * Tests adding product ID
+   * Tests adding product ID.
    */
   public function testWithProductId() {
     $this->assertEntityReferenceNormalization(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import {render} from 'react-dom';
 import CartBlock from "./components/cart-block";
 import CartForm from "./components/cart-form";
 

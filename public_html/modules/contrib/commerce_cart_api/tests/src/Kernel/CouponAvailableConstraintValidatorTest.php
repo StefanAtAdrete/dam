@@ -13,7 +13,7 @@ use Drupal\Tests\commerce_order\Kernel\OrderKernelTestBase;
 /**
  * Tests the coupon available constraint on coupons fields.
  *
- * @group commerce
+ * @group commerce_cart_api
  */
 class CouponAvailableConstraintValidatorTest extends OrderKernelTestBase {
 
@@ -22,7 +22,7 @@ class CouponAvailableConstraintValidatorTest extends OrderKernelTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'commerce_promotion',
     'commerce_cart',
     'commerce_cart_api',

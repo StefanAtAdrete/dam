@@ -14,8 +14,8 @@ cart:
     js/views/CartIcon.js: { }
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupal
     - core/drupalSettings
-    - core/backbone
-    - core/underscore
+    - core/internal.backbone
+    - core/internal.underscore

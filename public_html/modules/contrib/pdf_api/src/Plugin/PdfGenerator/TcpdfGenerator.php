@@ -4,6 +4,7 @@ namespace Drupal\pdf_api\Plugin\PdfGenerator;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\pdf_api\Plugin\PdfGeneratorBase;
+use Drupal\pdf_api\Plugin\PdfGeneratorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

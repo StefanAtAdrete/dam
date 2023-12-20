@@ -5,7 +5,7 @@
     "homepage": "https://www.drupal.org/project/pdf_api",
     "license": "GPL-2.0-or-later",
     "require": {
-        "dompdf/dompdf" : "^2.0",
+        "dompdf/dompdf" : ">=2.0.4",
         "mikehaertl/phpwkhtmltopdf": "^2.3",
         "mpdf/mpdf" : "^8.2.0",
         "tecnickcom/tcpdf": "^6.2"

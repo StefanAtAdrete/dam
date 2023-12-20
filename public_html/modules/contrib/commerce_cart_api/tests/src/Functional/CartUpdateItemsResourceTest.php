@@ -22,14 +22,6 @@ class CartUpdateItemsResourceTest extends CartResourceTestBase {
   protected static $resourceConfigId = 'commerce_cart_update_items';
 
   /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-    $this->setUpAuthorization('PATCH');
-  }
-
-  /**
    * Tests patch when cart does not exist.
    */
   public function testMissingCart() {
@@ -150,7 +142,7 @@ class CartUpdateItemsResourceTest extends CartResourceTestBase {
     // Verify cart total properly updated.
     $this->container->get('entity_type.manager')->getStorage('commerce_order')->resetCache([$cart->id()]);
     $cart = Order::load($cart->id());
-    $this->assertEquals($cart->getTotalPrice()->getNumber(), 1500);
+    $this->assertEquals($cart->getTotalPrice()->getNumber(), '1500');
     $this->assertEquals($cart->getTotalPrice()->getCurrencyCode(), 'USD');
 
     // Verify json response.

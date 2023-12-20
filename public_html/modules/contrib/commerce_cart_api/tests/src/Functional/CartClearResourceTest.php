@@ -19,14 +19,6 @@ class CartClearResourceTest extends CartResourceTestBase {
   protected static $resourceConfigId = 'commerce_cart_clear';
 
   /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-    $this->setUpAuthorization('DELETE');
-  }
-
-  /**
    * Removes all items from a cart.
    */
   public function testClearCart() {
