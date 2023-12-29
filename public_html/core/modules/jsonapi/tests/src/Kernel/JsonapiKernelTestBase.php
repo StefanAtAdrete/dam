@@ -5,7 +5,7 @@ namespace Drupal\Tests\jsonapi\Kernel;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\Tests\field\Traits\EntityReferenceFieldCreationTrait;
+use Drupal\Tests\field\Traits\EntityReferenceTestTrait;
 
 /**
  * Contains shared test utility methods.
@@ -14,7 +14,7 @@ use Drupal\Tests\field\Traits\EntityReferenceFieldCreationTrait;
  */
 abstract class JsonapiKernelTestBase extends KernelTestBase {
 
-  use EntityReferenceFieldCreationTrait;
+  use EntityReferenceTestTrait;
 
   /**
    * {@inheritdoc}

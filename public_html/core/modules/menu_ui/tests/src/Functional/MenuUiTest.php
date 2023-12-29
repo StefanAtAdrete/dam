@@ -696,7 +696,7 @@ class MenuUiTest extends BrowserTestBase {
 
     // Make sure menu shows up with new name in block addition.
     $default_theme = $this->config('system.theme')->get('default');
-    $this->drupalGet('admin/structure/block/list/' . $default_theme);
+    $this->drupalget('admin/structure/block/list/' . $default_theme);
     $this->clickLink('Place block');
     $this->assertSession()->pageTextContains($edit['label']);
   }

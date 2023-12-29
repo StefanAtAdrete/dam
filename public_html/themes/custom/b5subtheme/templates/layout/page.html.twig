@@ -95,7 +95,7 @@ set footer_classes = ' ' ~
    %}
 
 
-<div class="{{ b5_top_container }}">
+<div class="min-vh-100 {{ b5_top_container }}">
 	{% if page.breadcrumb %}
 		{{ page.breadcrumb }}
 	{% endif %}
@@ -115,7 +115,7 @@ set footer_classes = ' ' ~
 		{% endif %}
 	</div>
 </div></main>{% if page.footer %}
-<footer class="mt-5{{ footer_classes }}">
+<footer class="mt-auto {{ footer_classes }}">
 	<div class="{{ b5_top_container }}">
 		{{ page.footer }}
 	</div>

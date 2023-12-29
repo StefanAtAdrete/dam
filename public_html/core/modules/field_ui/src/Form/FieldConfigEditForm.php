@@ -259,7 +259,6 @@ class FieldConfigEditForm extends EntityForm {
     }
     $form['#prefix'] = '<div id="field-combined">';
     $form['#suffix'] = '</div>';
-    $form['#attached']['library'][] = 'field_ui/drupal.field_ui';
     return $form;
   }
 

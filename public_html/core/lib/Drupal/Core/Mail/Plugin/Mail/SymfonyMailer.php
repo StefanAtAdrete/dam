@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Transport;
-use Symfony\Component\Mailer\Transport\Dsn;
 use Symfony\Component\Mime\Email;
 
 /**
@@ -36,15 +35,10 @@ use Symfony\Component\Mime\Email;
  *
  * @code
  *   $config['system.mail']['interface'] = [ 'default' => 'symfony_mailer' ];
- *   $config['system.mail']['mailer_dsn'] = [
- *     'scheme' => 'smtp',
- *     'host' => 'smtp.example.com',
- *     'port' => 25,
- *     'user' => 'user',
- *     'password' => 'pass',
- *     'options' => [],
- *   ];
+ *   $config['system.mail']['mailer_dsn'] = 'smtp://user:pass@smtp.example.com:25';
  * @endcode
+ *
+ * Note that special characters in the mailer_dsn need to be URL encoded.
  *
  * @see https://symfony.com/doc/current/mailer.html#using-built-in-transports
  *
@@ -149,7 +143,6 @@ class SymfonyMailer implements MailInterface, ContainerFactoryPluginInterface {
   protected function getMailer(): MailerInterface {
     if (!isset($this->mailer)) {
       $dsn = \Drupal::config('system.mail')->get('mailer_dsn');
-      $dsnObject = new Dsn(...$dsn);
 
       // Symfony Mailer and Transport classes both optionally depend on the
       // event dispatcher. When provided, a MessageEvent is fired whenever an
@@ -161,9 +154,7 @@ class SymfonyMailer implements MailInterface, ContainerFactoryPluginInterface {
       // mails into the code path (i.e., event subscribers) of the new API.
       // Therefore, this plugin deliberately refrains from injecting the event
       // dispatcher.
-      $factories = Transport::getDefaultFactories(logger: $this->logger);
-      $transportFactory = new Transport($factories);
-      $transport = $transportFactory->fromDsnObject($dsnObject);
+      $transport = Transport::fromDsn($dsn, logger: $this->logger);
       $this->mailer = new Mailer($transport);
     }
 

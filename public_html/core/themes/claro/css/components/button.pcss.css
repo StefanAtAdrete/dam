@@ -48,7 +48,6 @@
 
   &:hover {
     text-decoration: none;
-    color: var(--button-fg-color);
     background-color: var(--button--hover-bg-color);
   }
 

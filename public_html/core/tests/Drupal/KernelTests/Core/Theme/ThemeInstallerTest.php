@@ -355,8 +355,17 @@ class ThemeInstallerTest extends KernelTestBase {
     $themes = $this->themeHandler()->listInfo();
     $this->assertEmpty(array_keys($themes));
 
-    $this->expectException(UnknownExtensionException::class);
-    $this->themeInstaller()->uninstall([$name]);
+    try {
+      $message = 'ThemeInstaller::uninstall() throws UnknownExtensionException upon uninstalling a non-existing theme.';
+      $this->themeInstaller()->uninstall([$name]);
+      $this->fail($message);
+    }
+    catch (\Exception $e) {
+      $this->assertInstanceOf(UnknownExtensionException::class, $e);
+    }
+
+    $themes = $this->themeHandler()->listInfo();
+    $this->assertEmpty(array_keys($themes));
   }
 
   /**
@@ -388,10 +397,14 @@ class ThemeInstallerTest extends KernelTestBase {
   public function testUninstallNotInstalled() {
     $name = 'test_basetheme';
 
-    $themes = $this->themeHandler()->listInfo();
-    $this->assertEmpty(array_keys($themes));
-    $this->expectException(UnknownExtensionException::class);
-    $this->themeInstaller()->uninstall([$name]);
+    try {
+      $message = 'ThemeInstaller::uninstall() throws UnknownExtensionException upon uninstalling a theme that is not installed.';
+      $this->themeInstaller()->uninstall([$name]);
+      $this->fail($message);
+    }
+    catch (\Exception $e) {
+      $this->assertInstanceOf(UnknownExtensionException::class, $e);
+    }
   }
 
   /**

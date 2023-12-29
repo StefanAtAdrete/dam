@@ -909,8 +909,9 @@ module.exports = {
                   y -= refRect.y;
                 }
                 if (!withinRange(x, options.x) || !withinRange(y, options.y)) {
-                  toReturn[idKey] =
-                    `${idKey} EXPECTED x:${options.x} y:${options.y} ACTUAL x:${x} y:${y}`;
+                  toReturn[
+                    idKey
+                  ] = `${idKey} EXPECTED x:${options.x} y:${options.y} ACTUAL x:${x} y:${y}`;
                 } else {
                   toReturn[idKey] = true;
                 }

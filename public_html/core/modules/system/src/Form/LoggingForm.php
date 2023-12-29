@@ -4,7 +4,6 @@ namespace Drupal\system\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Form\RedundantEditableConfigNamesTrait;
 
 /**
  * Configure logging settings for this site.
@@ -12,13 +11,19 @@ use Drupal\Core\Form\RedundantEditableConfigNamesTrait;
  * @internal
  */
 class LoggingForm extends ConfigFormBase {
-  use RedundantEditableConfigNamesTrait;
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'system_logging_settings';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['system.logging'];
   }
 
   /**

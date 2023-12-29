@@ -4,6 +4,7 @@ namespace Drupal\Core\Field\Plugin\Field\FieldType;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
@@ -482,7 +483,6 @@ class EntityReferenceItem extends EntityReferenceItemBase implements OptionsProv
     ];
     $form['handler']['handler_submit'] = [
       '#type' => 'submit',
-      '#name' => 'handler_settings_submit',
       '#value' => $this->t('Change handler'),
       '#limit_validation_errors' => [],
       '#attributes' => [
@@ -705,8 +705,8 @@ class EntityReferenceItem extends EntityReferenceItemBase implements OptionsProv
   public static function fieldSettingsAjaxProcessElement(&$element, $main_form) {
     if (!empty($element['#ajax'])) {
       $element['#ajax'] = [
-        'trigger_as' => ['name' => 'handler_settings_submit'],
-        'wrapper' => 'field-combined',
+        'callback' => [static::class, 'settingsAjax'],
+        'wrapper' => $main_form['#id'],
         'element' => $main_form['#array_parents'],
       ];
     }
@@ -732,13 +732,20 @@ class EntityReferenceItem extends EntityReferenceItemBase implements OptionsProv
   }
 
   /**
+   * Ajax callback for the handler settings form.
+   *
+   * @see static::fieldSettingsForm()
+   */
+  public static function settingsAjax($form, FormStateInterface $form_state) {
+    return NestedArray::getValue($form, $form_state->getTriggeringElement()['#ajax']['element']);
+  }
+
+  /**
    * Submit handler for the non-JS case.
    *
    * @see static::fieldSettingsForm()
    */
   public static function settingsAjaxSubmit($form, FormStateInterface $form_state) {
-    $form_storage = &$form_state->getStorage();
-    unset($form_storage['default_value_widget']);
     $form_state->setRebuild();
   }
 

@@ -7,7 +7,6 @@ services:
   book.manager:
     class: Drupal\book\BookManager
     arguments: ['@entity_type.manager', '@string_translation', '@config.factory', '@book.outline_storage', '@renderer', '@language_manager', '@entity.repository', '@book.backend_chained_cache', '@book.memory_cache']
-    lazy: true
   Drupal\book\BookManagerInterface: '@book.manager'
   book.outline:
     class: Drupal\book\BookOutline
@@ -30,7 +29,9 @@ services:
       - { name: access_check, applies_to: _access_book_removable }
   cache_context.route.book_navigation:
     class: Drupal\book\Cache\BookNavigationCacheContext
-    arguments: ['@current_route_match', '@book.manager']
+    arguments: ['@current_route_match']
+    calls:
+      - [setContainer, ['@service_container']]
     tags:
       - { name: cache.context}
 

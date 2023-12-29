@@ -835,7 +835,6 @@
 
     // Allow Drupal to return new JavaScript and CSS files to load without
     // returning the ones already loaded.
-    // @see \Drupal\Core\StackMiddleWare\AjaxPageState
     // @see \Drupal\Core\Theme\AjaxBasePageNegotiator
     // @see \Drupal\Core\Asset\LibraryDependencyResolverInterface::getMinimalRepresentativeSubset()
     // @see system_js_settings_alter()
@@ -1085,9 +1084,7 @@
     const focusChanged = Object.keys(response || {}).some((key) => {
       const { command, method } = response[key];
       return (
-        command === 'focusFirst' ||
-        command === 'openDialog' ||
-        (command === 'invoke' && method === 'focus')
+        command === 'focusFirst' || (command === 'invoke' && method === 'focus')
       );
     });
 

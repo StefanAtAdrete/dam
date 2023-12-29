@@ -1,16 +1,10 @@
 name: Triton
 recipe: lamp
 config:
-  public_html:
-    volumes:
-      - type: bind
-        source: ./web
-        target: /app
-        cached: true
   webroot: public_html
   xdebug: false
-  config:
-    php: php_config/php.ini
+  conf:
+    php: .vscode/php.ini
   php: "8.1"
 services:
   mailhog:
@@ -18,10 +12,6 @@ services:
     portforward: true
     hogfrom:
       - appserver
-    appserver:
-      build_as_root:
-        - apt-get update -y
-        - apt-get install -y php8.1-opcache
   phpmyadmin:
     type: phpmyadmin
     hosts:
@@ -34,12 +24,8 @@ proxy:
     - mail.triton.lndo.site
   phpmyadmin:
     - phpmyadmin.triton.lndo.site
-  appserver:
-    - triton.lndo.site:8080
 tooling:
   drush:
     service: appserver
-excludes:
-  - vendor
-  - node_modules
-  - modules/contrib
+    env:
+      DRUSH_OPTIONS_URI: "http://triton.lndo.site"

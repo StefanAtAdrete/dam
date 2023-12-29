@@ -11,10 +11,8 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
-use Drupal\Tests\field\Traits\EntityReferenceFieldCreationTrait;
+use Drupal\Tests\field\Traits\EntityReferenceTestTrait;
 use Symfony\Component\HttpFoundation\Request;
-
-// cspell:ignore merhaba siema xsiemax
 
 /**
  * Tests Entity Query functionality.
@@ -23,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class EntityQueryTest extends EntityKernelTestBase {
 
-  use EntityReferenceFieldCreationTrait;
+  use EntityReferenceTestTrait;
 
   /**
    * Modules to enable.

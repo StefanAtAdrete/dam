@@ -34,7 +34,6 @@ install:
   - views
   - views_ui
   - automated_cron
-  - announcements_feed
 themes:
   - olivero
   - claro

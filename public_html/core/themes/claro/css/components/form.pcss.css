@@ -121,11 +121,11 @@ tr .form-item,
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  margin-block: var(--space-xs);
+  margin-block: var(--space-m);
 
   & .button,
   & .action-link {
-    margin-block: var(--space-xs);
+    margin-block: var(--space-m);
   }
 
   & .ajax-progress--throbber {

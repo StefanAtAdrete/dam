@@ -60,7 +60,7 @@
         "drupal/config_split": "^1.7",
         "drupal/core-composer-scaffold": "^10",
         "drupal/core-project-message": "^10",
-        "drupal/core-recommended": "^10",
+        "drupal/core-recommended": "^10.2.0",
         "drupal/custom_breadcrumbs": "^1.0",
         "drupal/datalayer": "^2.0@RC",
         "drupal/devel_generate_commerce": "^1.1",
@@ -160,7 +160,7 @@
         "drupal/webform_views": "^5.1",
         "drupal/webp": "^1.0@beta",
         "drupal/workflow": "^1.7",
-        "drush/drush": "^12",
+        "drush/drush": "^11",
         "facebook/php-business-sdk": "^16.0",
         "h4cc/wkhtmltopdf-amd64": "^0.12.4",
         "h4cc/wkhtmltopdf-i386": "^0.12.4",
@@ -194,7 +194,6 @@
             }
         },
         "patches": {
-
         },
         "installer-paths": {
             "public_html/core": [

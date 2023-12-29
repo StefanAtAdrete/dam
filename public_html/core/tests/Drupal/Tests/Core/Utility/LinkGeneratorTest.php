@@ -3,8 +3,6 @@
 namespace Drupal\Tests\Core\Utility;
 
 use Drupal\Component\Render\MarkupInterface;
-use Drupal\Component\Utility\Html;
-use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\GeneratedButton;
 use Drupal\Core\GeneratedNoLink;
 use Drupal\Core\GeneratedUrl;
@@ -14,6 +12,7 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use Drupal\Core\Utility\LinkGenerator;
 use Drupal\Tests\UnitTestCase;
+use Drupal\Core\DependencyInjection\ContainerBuilder;
 
 /**
  * @coversDefaultClass \Drupal\Core\Utility\LinkGenerator
@@ -411,7 +410,7 @@ class LinkGeneratorTest extends UnitTestCase {
     $url = new Url('test_route_4');
     $url->setUrlGenerator($this->urlGenerator);
     $result = $this->linkGenerator->generate("<script>alert('XSS!')</script>", $url);
-    $this->assertNoXPathResults('//a[@href="/test-route-4"]/script', (string) $result);
+    $this->assertNoXPathResults('//a[@href="/test-route-4"]/script', $result);
   }
 
   /**
@@ -450,7 +449,7 @@ class LinkGeneratorTest extends UnitTestCase {
         'tag' => 'em',
       ],
     ], $result);
-    $this->assertStringContainsString('<em>HTML output</em>', (string) $result);
+    $this->assertStringContainsString('<em>HTML output</em>', $result);
   }
 
   /**
@@ -499,7 +498,7 @@ class LinkGeneratorTest extends UnitTestCase {
     $url = new Url('test_route_1', [], ['set_active_class' => FALSE]);
     $url->setUrlGenerator($this->urlGenerator);
     $result = $this->linkGenerator->generate('Test', $url);
-    $this->assertNoXPathResults('//a[@data-drupal-link-system-path="test-route-1"]', (string) $result);
+    $this->assertNoXPathResults('//a[@data-drupal-link-system-path="test-route-1"]', $result);
 
     // Render a link with an associated language.
     $url = new Url('test_route_1', [], [
@@ -677,7 +676,8 @@ class LinkGeneratorTest extends UnitTestCase {
     }
 
     // Execute the query.
-    $document = Html::load($html);
+    $document = new \DOMDocument();
+    $document->loadHTML($html);
     $xpath = new \DOMXPath($document);
 
     self::assertEquals($count, $xpath->query($query)->length);
@@ -694,7 +694,8 @@ class LinkGeneratorTest extends UnitTestCase {
    * @internal
    */
   protected function assertNoXPathResults(string $query, string $html): void {
-    $document = Html::load($html);
+    $document = new \DOMDocument();
+    $document->loadHTML($html);
     $xpath = new \DOMXPath($document);
 
     self::assertFalse((bool) $xpath->query($query)->length);

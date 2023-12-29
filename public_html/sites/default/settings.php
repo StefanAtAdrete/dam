@@ -256,7 +256,8 @@ $databases = [];
  * variable has the same value on each server.
  *
  * For enhanced security, you may set this variable to the contents of a file
- * outside your document root; you should also ensure that this file is not
+ * outside your document root, and vary the value across environments (like
+ * production and development); you should also ensure that this file is not
  * stored with backups of your database.
  *
  * Example:
@@ -264,7 +265,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'RH8mlyh5O4AQ_7AgQzuds3HdMbOTwNSFTaiUGc1Dm_5qcwnB8EmEVcOoCZmGJlbchnNooW60Zg';
+$settings['hash_salt'] = '5vB2HcaBqYuQWs28Jr_f7qM7bE1pR8NkoTpBf_y4XBDUGnqxXbxxIQDJlbXatMg61cidXETtaw';
 
 /**
  * Deployment identifier.
@@ -487,6 +488,15 @@ $settings['update_free_access'] = FALSE;
 # $settings['file_chmod_file'] = 0664;
 
 /**
+ * Optimized assets path:
+ *
+ * A local file system path where optimized assets will be stored. This directory
+ * must exist and be writable by Drupal. This directory must be relative to
+ * the Drupal installation directory and be accessible over the web.
+ */
+# $settings['file_assets_path'] = 'sites/default/files';
+
+/**
  * Public file base URL:
  *
  * An alternative base URL to be used for serving public files. This must
@@ -551,6 +561,23 @@ $settings['update_free_access'] = FALSE;
 # $settings['file_sa_core_2023_005_schemes'] = ['porcelain'];
 
 /**
+ * Configuration for phpinfo() admin status report.
+ *
+ * Drupal's admin UI includes a report at admin/reports/status/php which shows
+ * the output of phpinfo(). The full output can contain sensitive information
+ * so by default Drupal removes some sections.
+ *
+ * This behaviour can be configured by setting this variable to a different
+ * value corresponding to the flags parameter of phpinfo().
+ *
+ * If you need to expose more information in the report - for example to debug a
+ * problem - consider doing so temporarily.
+ *
+ * @see https://www.php.net/manual/function.phpinfo.php
+ */
+# $settings['sa_core_2023_004_phpinfo_flags'] = ~ (INFO_VARIABLES | INFO_ENVIRONMENT);
+
+/**
  * Private file path:
  *
  * A local file system path where private files will be stored. This directory
@@ -563,7 +590,7 @@ $settings['update_free_access'] = FALSE;
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
- $settings['file_private_path'] = '../private';
+# $settings['file_private_path'] = '';
 
 /**
  * Temporary file path:
@@ -599,7 +626,7 @@ $settings['update_free_access'] = FALSE;
  * any added language. (eg locale_custom_strings_de for german).
  */
 # $settings['locale_custom_strings_en'][''] = [
-#   'forum'      => 'Discussion board',
+#   'Home' => 'Front page',
 #   '@count min' => '@count minutes',
 # ];
 
@@ -724,6 +751,7 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  *
  * @see https://www.drupal.org/docs/installing-drupal/trusted-host-settings
  */
+# $settings['trusted_host_patterns'] = [];
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
@@ -832,9 +860,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
-
-$settings['simple_sitemap_engines.index_now.key'] = '67c69908-bb64-4160-8738-62ba778f0972';
-
 $databases['default']['default'] = array (
   'database' => 'lamp',
   'username' => 'lamp',
@@ -842,11 +867,9 @@ $databases['default']['default'] = array (
   'prefix' => '',
   'host' => 'database',
   'port' => '3306',
+  'isolation_level' => 'READ COMMITTED',
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'driver' => 'mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-  'init_commands' => [
-    'isolation_level' => 'SET SESSION tx_isolation=\'READ-COMMITTED\'',
-  ],
 );
-$settings['config_sync_directory'] = '../config/sync';
+$settings['config_sync_directory'] = 'sites/default/files/config_mIrLEvLQMEnqjBXVg_bhXy5n9J9TgAk3cQ_P8fyMEIZZV0A0axycD57UVnT7Cm7TGOYfZzI-kA/sync';

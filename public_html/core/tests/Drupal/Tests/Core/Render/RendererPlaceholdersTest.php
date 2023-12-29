@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\Tests\Core\Render\RendererPlaceholdersTest.
+ */
+
 namespace Drupal\Tests\Core\Render;
 
 use Drupal\Component\Utility\Crypt;
@@ -839,9 +844,9 @@ class RendererPlaceholdersTest extends RendererTestBase {
    * @covers ::render
    * @covers ::doRender
    *
-   * @see testNonScalarLazyBuilderCallbackContext
+   * @see testNonScalarLazybuilderCallbackContext
    */
-  public function testScalarLazyBuilderCallbackContext() {
+  public function testScalarLazybuilderCallbackContext() {
     $element = [];
     $element['#lazy_builder'] = [
       '\Drupal\Tests\Core\Render\PlaceholdersTest::callback',
@@ -863,7 +868,7 @@ class RendererPlaceholdersTest extends RendererTestBase {
    * @covers ::render
    * @covers ::doRender
    */
-  public function testNonScalarLazyBuilderCallbackContext() {
+  public function testNonScalarLazybuilderCallbackContext() {
     $element = [];
     $element['#lazy_builder'] = [
       '\Drupal\Tests\Core\Render\PlaceholdersTest::callback',

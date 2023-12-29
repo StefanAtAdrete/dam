@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\Tests\ckeditor5\FunctionalJavascript;
 
 use Drupal\Component\Utility\Html;
@@ -89,8 +87,8 @@ abstract class ImageTestBase extends CKEditor5TestBase {
     $page = $this->getSession()->getPage();
     $src = $this->imageAttributes()['src'];
     $this->waitForEditor();
-    $this->pressEditorButton('Insert image via URL');
-    $panel = $page->find('css', '.ck-dropdown__panel  .ck-image-insert-url');
+    $this->pressEditorButton('Insert image');
+    $panel = $page->find('css', '.ck-dropdown__panel.ck-image-insert__panel');
     $src_input = $panel->find('css', 'input[type=text]');
     $src_input->setValue($src);
     $panel->find('xpath', "//button[span[text()='Insert']]")->click();

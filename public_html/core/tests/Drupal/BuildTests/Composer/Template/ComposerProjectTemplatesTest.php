@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\BuildTests\Composer\Template;
 
 use Composer\Json\JsonFile;
@@ -32,7 +30,7 @@ class ComposerProjectTemplatesTest extends ComposerBuildTestBase {
    *
    * @see https://getcomposer.org/doc/04-schema.md#minimum-stability
    */
-  protected const MINIMUM_STABILITY = 'stable';
+  protected const MINIMUM_STABILITY = 'beta';
 
   /**
    * The order of stability strings from least stable to most stable.

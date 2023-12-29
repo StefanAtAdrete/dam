@@ -38,16 +38,8 @@
           $dialog.trigger('dialogButtonsChange');
         }
 
-        setTimeout(function () {
-          // Account for pre-existing focus handling that may have already moved
-          // the focus inside the dialog.
-          if (!$dialog[0].contains(document.activeElement)) {
-            // Move focus to the first focusable element in the next event loop
-            // to allow dialog buttons to be changed first.
-            $dialog.dialog('instance')._focusedElement = null;
-            $dialog.dialog('instance')._focusTabbable();
-          }
-        }, 0);
+        // Force focus on the modal when the behavior is run.
+        $dialog.dialog('widget').trigger('focus');
       }
 
       const originalClose = settings.dialog.close;

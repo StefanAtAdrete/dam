@@ -14,7 +14,7 @@ path_encoded_test.at_sign:
   requirements:
     _access: 'TRUE'
 
-path_encoded_test.parentheses:
+path_encoded_test.parens:
   path: '/cat(box)'
   defaults:
     _title: 'At sign'

@@ -220,6 +220,7 @@ abstract class TermResourceTestBase extends EntityResourceTestBase {
         ],
       ],
       'revision_user' => [],
+      'revision_log_message' => [],
       'revision_translation_affected' => [
         [
           'value' => TRUE,

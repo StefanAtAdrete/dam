@@ -48,7 +48,6 @@ class BlockBaseTest extends UnitTestCase {
   public function providerTestGetMachineNameSuggestion() {
     return [
       ['Admin label', 'adminlabel'],
-      // cspell:disable-next-line
       ['über åwesome', 'uberawesome'],
     ];
   }

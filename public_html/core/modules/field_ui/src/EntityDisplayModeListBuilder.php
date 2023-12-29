@@ -129,9 +129,6 @@ class EntityDisplayModeListBuilder extends ConfigEntityListBuilder {
         '#type' => 'table',
         '#header' => $this->buildHeader(),
         '#rows' => [],
-        '#attributes' => [
-          'class' => ['display-mode-table'],
-        ],
       ];
       foreach ($entities as $entity) {
         if ($row = $this->buildRow($entity)) {
@@ -161,7 +158,6 @@ class EntityDisplayModeListBuilder extends ConfigEntityListBuilder {
           '#attached' => [
             'library' => [
               'core/drupal.dialog.ajax',
-              'field_ui/drupal.field_ui_table',
             ],
           ],
         ],

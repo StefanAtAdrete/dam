@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\mysql\Kernel\mysql;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Command\DbDumpApplication;
 use Drupal\Core\Config\DatabaseStorage;
 use Drupal\Core\Database\Database;
@@ -195,9 +196,9 @@ class DbDumpTest extends DriverSpecificKernelTestBase {
     // The tables should now exist and the schemas should match the originals.
     foreach ($this->tables as $table) {
       $this->assertTrue($schema
-        ->tableExists($table), "Table $table created by the database script.");
-      $this->assertSame($this->originalTableSchemas[$table], $this->getTableSchema($table), "The schema for $table was properly restored.");
-      $this->assertSame($this->originalTableIndexes[$table], $this->getTableIndexes($table), "The indexes for $table were properly restored.");
+        ->tableExists($table), new FormattableMarkup('Table @table created by the database script.', ['@table' => $table]));
+      $this->assertSame($this->originalTableSchemas[$table], $this->getTableSchema($table), new FormattableMarkup('The schema for @table was properly restored.', ['@table' => $table]));
+      $this->assertSame($this->originalTableIndexes[$table], $this->getTableIndexes($table), new FormattableMarkup('The indexes for @table were properly restored.', ['@table' => $table]));
     }
 
     // Ensure the test config has been replaced.

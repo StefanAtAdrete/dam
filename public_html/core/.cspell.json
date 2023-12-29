@@ -44,25 +44,10 @@
       "\\Wi18n",
       "\\x{[0-9A-F]{4,5}}"
     ],
-    "dictionaries": [
-      "dictionary",
-      "drupal",
-      "companies",
-      "fonts",
-      "html",
-      "php",
-      "softwareTerms"
-    ],
+    "dictionaries": ["drupal","companies", "fonts", "html", "php", "softwareTerms"],
     "dictionaryDefinitions": [
-      {
-        "name": "drupal",
-        "path": "./misc/cspell/drupal-dictionary.txt"
-      },
-      {
-        "name": "dictionary",
-        "path": "./misc/cspell/dictionary.txt"
-      }
-     ],
+      { "name": "drupal", "path": "./misc/cspell/dictionary.txt"}
+    ],
     "flagWords": [
       "e-mail",
       "grey",
